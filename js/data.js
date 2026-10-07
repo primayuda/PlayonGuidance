@@ -2887,1012 +2887,1702 @@ const GUIDE = {
     ]
   ],
   "start": {
-    "name": "Start",
-    "detail": "Graha BNI, Jl. Jenderal Sudirman, Jakarta",
+    "name": {
+      "en": "Start",
+      "id": "Awal"
+    },
+    "detail": {
+      "en": "Graha BNI, Jl. Jenderal Sudirman, Jakarta",
+      "id": "Graha BNI, Jl. Jenderal Sudirman, Jakarta"
+    },
     "lat": -6.203565,
     "lng": 106.820427,
-    "note": "Published start area for ITB Ultra Marathon 2026. This is the Sudirman address, not a surveyed race GPS point."
+    "note": {
+      "en": "Published start area for ITB Ultra Marathon 2026. This is the Sudirman address, not a surveyed race GPS point.",
+      "id": "Area start yang diumumkan untuk ITB Ultra Marathon 2026. Ini alamat di Sudirman, bukan titik GPS lomba yang disurvei."
+    }
   },
   "finish": {
-    "name": "Finish",
-    "detail": "Saraga ITB, Jl. Tamansari, Bandung",
+    "name": {
+      "en": "Finish",
+      "id": "Finis"
+    },
+    "detail": {
+      "en": "Saraga ITB, Jl. Tamansari, Bandung",
+      "id": "Saraga ITB, Jl. Tamansari, Bandung"
+    },
     "lat": -6.88623,
     "lng": 107.60994,
-    "note": "Sarana Olahraga Ganesha, the published finish at ITB."
+    "note": {
+      "en": "Sarana Olahraga Ganesha, the published finish at ITB.",
+      "id": "Sarana Olahraga Ganesha, finis yang diumumkan di ITB."
+    }
   },
   "segments": [
     {
       "id": "jakarta",
-      "label": "Jakarta → Bogor",
-      "blurb": "Pasar Minggu and Jl. TB Simatupang, then Jl. Raya Bogor through Depok and Cibinong. Kramat Jati hospitals sit north of the Pasar Rebo junction and are missed on this entry."
+      "label": {
+        "en": "Jakarta → Bogor",
+        "id": "Jakarta → Bogor"
+      },
+      "blurb": {
+        "en": "Pasar Minggu and Jl. TB Simatupang, then Jl. Raya Bogor through Depok and Cibinong. Kramat Jati hospitals sit north of the Pasar Rebo junction and are missed on this entry.",
+        "id": "Pasar Minggu dan Jl. TB Simatupang, lalu Jl. Raya Bogor lewat Depok dan Cibinong. Rumah sakit Kramat Jati ada di utara simpang Pasar Rebo dan tidak terlewati kalau masuk dari sini."
+      }
     },
     {
       "id": "puncak",
-      "label": "Bogor → Cianjur",
-      "blurb": "Ciawi, the Puncak climb, then Cipanas and Cianjur. There is no hospital between Tugu Utara and Cipanas."
+      "label": {
+        "en": "Bogor → Cianjur",
+        "id": "Bogor → Cianjur"
+      },
+      "blurb": {
+        "en": "Ciawi, the Puncak climb, then Cipanas and Cianjur. There is no hospital between Tugu Utara and Cipanas.",
+        "id": "Ciawi, tanjakan Puncak, lalu Cipanas dan Cianjur. Tidak ada rumah sakit antara Tugu Utara dan Cipanas."
+      }
     },
     {
       "id": "cianjur",
-      "label": "Cianjur → Padalarang",
-      "blurb": "A thin stretch. About 40 km from Sukaluyu to Citatah has no general hospital, only a maternity home, puskesmas, and clinics."
+      "label": {
+        "en": "Cianjur → Padalarang",
+        "id": "Cianjur → Padalarang"
+      },
+      "blurb": {
+        "en": "A thin stretch. About 40 km from Sukaluyu to Citatah has no general hospital, only a maternity home, puskesmas, and clinics.",
+        "id": "Ruas yang tipis. Sekitar 40 km dari Sukaluyu sampai Citatah tidak ada rumah sakit umum, hanya rumah bersalin, puskesmas, dan klinik."
+      }
     },
     {
       "id": "cimahi",
-      "label": "Padalarang → Bandung",
-      "blurb": "Through Cimareme and Cimahi on Jl. Amir Machmud to Cibeureum. Largest emergency rooms here are RS Dustira and RSUD Cibabat."
+      "label": {
+        "en": "Padalarang → Bandung",
+        "id": "Padalarang → Bandung"
+      },
+      "blurb": {
+        "en": "Through Cimareme and Cimahi on Jl. Amir Machmud to Cibeureum. Largest emergency rooms here are RS Dustira and RSUD Cibabat.",
+        "id": "Lewat Cimareme dan Cimahi di Jl. Amir Machmud sampai Cibeureum. IGD terbesar di ruas ini ada di RS Dustira dan RSUD Cibabat."
+      }
     }
   ],
   "places": [
     {
       "id": "pasar-minggu",
-      "name": "RSUD Pasar Minggu",
+      "name": {
+        "en": "RSUD Pasar Minggu",
+        "id": "RSUD Pasar Minggu"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-50866999",
-      "address": "Jl. TB Simatupang No. 1, Ragunan",
+      "address": {
+        "en": "Jl. TB Simatupang No. 1, Ragunan",
+        "id": "Jl. TB Simatupang No. 1, Ragunan"
+      },
       "km": "",
       "lat": -6.293984,
       "lng": 106.819869,
-      "note": "Large public hospital at the south-Jakarta start of this corridor.",
+      "note": {
+        "en": "Large public hospital at the south-Jakarta start of this corridor.",
+        "id": "Rumah sakit umum besar di ujung selatan koridor Jakarta."
+      },
       "tel": "+622150866999"
     },
     {
       "id": "jagakarsa",
-      "name": "RSUD Jagakarsa",
+      "name": {
+        "en": "RSUD Jagakarsa",
+        "id": "RSUD Jagakarsa"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Moh. Kahfi I, Jagakarsa",
+      "address": {
+        "en": "Jl. Moh. Kahfi I, Jagakarsa",
+        "id": "Jl. Moh. Kahfi I, Jagakarsa"
+      },
       "km": "",
       "lat": -6.316176,
       "lng": 106.811363,
-      "note": "About 2 km off Jl. TB Simatupang. No phone in the crew notes.",
+      "note": {
+        "en": "About 2 km off Jl. TB Simatupang. No phone in the crew notes.",
+        "id": "Sekitar 2 km dari Jl. TB Simatupang. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "pasar-rebo",
-      "name": "RSUD Pasar Rebo",
+      "name": {
+        "en": "RSUD Pasar Rebo",
+        "id": "RSUD Pasar Rebo"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8401127",
-      "address": "Jl. TB Simatupang No. 30",
+      "address": {
+        "en": "Jl. TB Simatupang No. 30",
+        "id": "Jl. TB Simatupang No. 30"
+      },
       "km": "",
       "lat": -6.303647,
       "lng": 106.862196,
-      "note": "Sits just before the turn onto Jl. Raya Bogor. One of the larger emergency rooms on the Jakarta stretch.",
+      "note": {
+        "en": "Sits just before the turn onto Jl. Raya Bogor. One of the larger emergency rooms on the Jakarta stretch.",
+        "id": "Tepat sebelum belok ke Jl. Raya Bogor. Salah satu IGD yang lebih besar di ruas Jakarta."
+      },
       "tel": "+62218401127"
     },
     {
       "id": "binawaluya",
-      "name": "RS Jantung Binawaluya",
+      "name": {
+        "en": "RS Jantung Binawaluya",
+        "id": "RS Jantung Binawaluya"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-87781605",
-      "address": "Jl. TB Simatupang No. 71, Ciracas",
+      "address": {
+        "en": "Jl. TB Simatupang No. 71, Ciracas",
+        "id": "Jl. TB Simatupang No. 71, Ciracas"
+      },
       "km": "",
       "lat": -6.307958,
       "lng": 106.870872,
-      "note": "Heart hospital. The crew notes warn that its Google Maps pin is sometimes wrong.",
+      "note": {
+        "en": "Heart hospital. The crew notes warn that its Google Maps pin is sometimes wrong.",
+        "id": "Rumah sakit jantung. Catatan kru mengingatkan pin Google Maps-nya kadang salah."
+      },
       "tel": "+622187781605"
     },
     {
       "id": "restu-kasih",
-      "name": "RS Restu Kasih",
+      "name": {
+        "en": "RS Restu Kasih",
+        "id": "RS Restu Kasih"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "rsia",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8001177",
-      "address": "Jl. Raya Bogor, Kramat Jati",
+      "address": {
+        "en": "Jl. Raya Bogor, Kramat Jati",
+        "id": "Jl. Raya Bogor, Kramat Jati"
+      },
       "km": "KM 19",
       "lat": -6.265707,
       "lng": 106.866471,
-      "note": "Mother-and-child hospital. North of the Pasar Rebo junction, so the race route misses it if you join Jl. Raya Bogor from Pasar Rebo.",
+      "note": {
+        "en": "Mother-and-child hospital. North of the Pasar Rebo junction, so the race route misses it if you join Jl. Raya Bogor from Pasar Rebo.",
+        "id": "Rumah sakit ibu dan anak. Di utara simpang Pasar Rebo, jadi rute lomba tidak melewatinya kalau masuk Jl. Raya Bogor dari Pasar Rebo."
+      },
       "tel": "+62218001177"
     },
     {
       "id": "rs-polri",
-      "name": "RS Polri (Bhayangkara Tk. I Said Sukanto)",
+      "name": {
+        "en": "RS Polri (Bhayangkara Tk. I Said Sukanto)",
+        "id": "RS Polri (Bhayangkara Tk. I Said Sukanto)"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. RS Polri, Kramat Jati",
+      "address": {
+        "en": "Jl. RS Polri, Kramat Jati",
+        "id": "Jl. RS Polri, Kramat Jati"
+      },
       "km": "KM 19–20",
       "lat": -6.269462,
       "lng": 106.870714,
-      "note": "Major trauma-capable emergency room. Same northern approach as Restu Kasih: not passed when entering from Pasar Rebo. No phone in the crew notes.",
+      "note": {
+        "en": "Major trauma-capable emergency room. Same northern approach as Restu Kasih: not passed when entering from Pasar Rebo. No phone in the crew notes.",
+        "id": "IGD besar yang mampu menangani trauma. Jalur utara yang sama dengan Restu Kasih: tidak terlewati kalau masuk dari Pasar Rebo. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "pusdikkes",
-      "name": "RS Pusdikkes TNI AD",
+      "name": {
+        "en": "RS Pusdikkes TNI AD",
+        "id": "RS Pusdikkes TNI AD"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8092358",
-      "address": "Jl. Raya Bogor, Kramat Jati",
+      "address": {
+        "en": "Jl. Raya Bogor, Kramat Jati",
+        "id": "Jl. Raya Bogor, Kramat Jati"
+      },
       "km": "KM 20",
       "lat": -6.276312,
       "lng": 106.869277,
-      "note": "Army medical education center with a hospital. Not passed when entering from Pasar Rebo.",
+      "note": {
+        "en": "Army medical education center with a hospital. Not passed when entering from Pasar Rebo.",
+        "id": "Pusat pendidikan kesehatan TNI AD yang punya rumah sakit. Tidak terlewati kalau masuk dari Pasar Rebo."
+      },
       "tel": "+62218092358"
     },
     {
       "id": "kramat-jati",
-      "name": "RSUD Kramat Jati",
+      "name": {
+        "en": "RSUD Kramat Jati",
+        "id": "RSUD Kramat Jati"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Raya Inpres, Kramat Jati",
+      "address": {
+        "en": "Jl. Raya Inpres, Kramat Jati",
+        "id": "Jl. Raya Inpres, Kramat Jati"
+      },
       "km": "",
       "lat": -6.286868,
       "lng": 106.86228,
-      "note": "Short detour off Jl. Raya Bogor. No phone in the crew notes.",
+      "note": {
+        "en": "Short detour off Jl. Raya Bogor. No phone in the crew notes.",
+        "id": "Sedikit menyimpang dari Jl. Raya Bogor. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "al-fauzan",
-      "name": "RSIA Al-Fauzan",
+      "name": {
+        "en": "RSIA Al-Fauzan",
+        "id": "RSIA Al-Fauzan"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "rsia",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Kramat Jati",
+      "address": {
+        "en": "Kramat Jati",
+        "id": "Kramat Jati"
+      },
       "km": "",
       "lat": -6.299599,
       "lng": 106.869086,
-      "note": "Crew notes call this a mother-and-child hospital. OpenStreetMap lists the building as RSU Al Fauzan. No phone in the crew notes.",
+      "note": {
+        "en": "Crew notes call this a mother-and-child hospital. OpenStreetMap lists the building as RSU Al Fauzan. No phone in the crew notes.",
+        "id": "Catatan kru menyebut ini rumah sakit ibu dan anak. OpenStreetMap mencatat gedungnya sebagai RSU Al Fauzan. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "harapan-bunda",
-      "name": "RS Harapan Bunda",
+      "name": {
+        "en": "RS Harapan Bunda",
+        "id": "RS Harapan Bunda"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8400257",
-      "address": "Jl. Raya Bogor No. 44, Rambutan, Ciracas",
+      "address": {
+        "en": "Jl. Raya Bogor No. 44, Rambutan, Ciracas",
+        "id": "Jl. Raya Bogor No. 44, Rambutan, Ciracas"
+      },
       "km": "",
       "lat": -6.303027,
       "lng": 106.868051,
-      "note": "Just past the Pasar Rebo junction, on the way south.",
+      "note": {
+        "en": "Just past the Pasar Rebo junction, on the way south.",
+        "id": "Tepat setelah simpang Pasar Rebo, di jalan ke selatan."
+      },
       "tel": "+62218400257"
     },
     {
       "id": "tjakra",
-      "name": "Klinik / RB Tjakra",
+      "name": {
+        "en": "Klinik / RB Tjakra",
+        "id": "Klinik / RB Tjakra"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "clinic",
       "major_er": false,
       "open24": false,
-      "hours": "08:00–20:30",
+      "hours": {
+        "en": "08:00–20:30",
+        "id": "08:00–20:30"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Raya Bogor, Susukan",
+      "address": {
+        "en": "Jl. Raya Bogor, Susukan",
+        "id": "Jl. Raya Bogor, Susukan"
+      },
       "km": "KM 24",
       "lat": -6.314855,
       "lng": 106.863513,
-      "note": "Maternity clinic, not a full hospital. Closed overnight.",
+      "note": {
+        "en": "Maternity clinic, not a full hospital. Closed overnight.",
+        "id": "Klinik bersalin, bukan rumah sakit penuh. Tutup semalaman."
+      },
       "tel": ""
     },
     {
       "id": "tugu-ibu",
-      "name": "RS Tugu Ibu",
+      "name": {
+        "en": "RS Tugu Ibu",
+        "id": "RS Tugu Ibu"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8710870",
-      "address": "Jl. Raya Bogor KM 29, Mekarsari, Cimanggis",
+      "address": {
+        "en": "Jl. Raya Bogor KM 29, Mekarsari, Cimanggis",
+        "id": "Jl. Raya Bogor KM 29, Mekarsari, Cimanggis"
+      },
       "km": "KM 29",
       "lat": -6.356489,
       "lng": 106.860494,
-      "note": "Depok. On Jl. Raya Bogor.",
+      "note": {
+        "en": "Depok. On Jl. Raya Bogor.",
+        "id": "Depok. Di Jl. Raya Bogor."
+      },
       "tel": "+62218710870"
     },
     {
       "id": "setya-bhakti",
-      "name": "RSIA Setya Bhakti",
+      "name": {
+        "en": "RSIA Setya Bhakti",
+        "id": "RSIA Setya Bhakti"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "rsia",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8711518",
-      "address": "Jl. Raya Bogor KM 30, Mekarsari, Cimanggis",
+      "address": {
+        "en": "Jl. Raya Bogor KM 30, Mekarsari, Cimanggis",
+        "id": "Jl. Raya Bogor KM 30, Mekarsari, Cimanggis"
+      },
       "km": "KM 30",
       "lat": -6.368373,
       "lng": 106.860408,
-      "note": "Mother-and-child hospital.",
+      "note": {
+        "en": "Mother-and-child hospital.",
+        "id": "Rumah sakit ibu dan anak."
+      },
       "tel": "+62218711518"
     },
     {
       "id": "tumbuh-kembang",
-      "name": "RSIA Tumbuh Kembang",
+      "name": {
+        "en": "RSIA Tumbuh Kembang",
+        "id": "RSIA Tumbuh Kembang"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "rsia",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Raya Bogor, Tugu, Cimanggis",
+      "address": {
+        "en": "Jl. Raya Bogor, Tugu, Cimanggis",
+        "id": "Jl. Raya Bogor, Tugu, Cimanggis"
+      },
       "km": "KM 31",
       "lat": -6.371676,
       "lng": 106.861428,
-      "note": "Mother-and-child hospital. No phone in the crew notes.",
+      "note": {
+        "en": "Mother-and-child hospital. No phone in the crew notes.",
+        "id": "Rumah sakit ibu dan anak. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "cisalak",
-      "name": "RS Sentra Medika Cisalak",
+      "name": {
+        "en": "RS Sentra Medika Cisalak",
+        "id": "RS Sentra Medika Cisalak"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8743790",
-      "address": "Jl. Raya Bogor, Cisalak",
+      "address": {
+        "en": "Jl. Raya Bogor, Cisalak",
+        "id": "Jl. Raya Bogor, Cisalak"
+      },
       "km": "KM 33",
       "lat": -6.390969,
       "lng": 106.865275,
-      "note": "One of the larger emergency rooms between Jakarta and Bogor.",
+      "note": {
+        "en": "One of the larger emergency rooms between Jakarta and Bogor.",
+        "id": "Salah satu IGD yang lebih besar antara Jakarta dan Bogor."
+      },
       "tel": "+62218743790"
     },
     {
       "id": "simpangan",
-      "name": "RS Simpangan Depok",
+      "name": {
+        "en": "RS Simpangan Depok",
+        "id": "RS Simpangan Depok"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8741549",
-      "address": "Jl. Raya Bogor No. 36, Sukamaju, Cilodong",
+      "address": {
+        "en": "Jl. Raya Bogor No. 36, Sukamaju, Cilodong",
+        "id": "Jl. Raya Bogor No. 36, Sukamaju, Cilodong"
+      },
       "km": "",
       "lat": -6.40878,
       "lng": 106.861693,
-      "note": "On Jl. Raya Bogor.",
+      "note": {
+        "en": "On Jl. Raya Bogor.",
+        "id": "Di Jl. Raya Bogor."
+      },
       "tel": "+62218741549"
     },
     {
       "id": "primaya",
-      "name": "Primaya Hospital Depok",
+      "name": {
+        "en": "Primaya Hospital Depok",
+        "id": "Primaya Hospital Depok"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. H. Dimun, behind RS Simpangan",
+      "address": {
+        "en": "Jl. H. Dimun, behind RS Simpangan",
+        "id": "Jl. H. Dimun, behind RS Simpangan"
+      },
       "km": "",
       "lat": -6.407686,
       "lng": 106.851012,
-      "note": "Short detour behind RS Simpangan. No phone in the crew notes.",
+      "note": {
+        "en": "Short detour behind RS Simpangan. No phone in the crew notes.",
+        "id": "Sedikit menyimpang, di belakang RS Simpangan. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "trimitra",
-      "name": "RS Trimitra",
+      "name": {
+        "en": "RS Trimitra",
+        "id": "RS Trimitra"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8763055",
-      "address": "Jl. Raya Bogor, Pabuaran, Cibinong",
+      "address": {
+        "en": "Jl. Raya Bogor, Pabuaran, Cibinong",
+        "id": "Jl. Raya Bogor, Pabuaran, Cibinong"
+      },
       "km": "KM 43",
       "lat": -6.47453,
       "lng": 106.847265,
-      "note": "Kabupaten Bogor, still on Jl. Raya Bogor.",
+      "note": {
+        "en": "Kabupaten Bogor, still on Jl. Raya Bogor.",
+        "id": "Kabupaten Bogor, masih di Jl. Raya Bogor."
+      },
       "tel": "+62218763055"
     },
     {
       "id": "bina-husada",
-      "name": "Mitra Keluarga Cibinong (Bina Husada)",
+      "name": {
+        "en": "Mitra Keluarga Cibinong (Bina Husada)",
+        "id": "Mitra Keluarga Cibinong (Bina Husada)"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Mayor Oking, Cibinong",
+      "address": {
+        "en": "Jl. Mayor Oking, Cibinong",
+        "id": "Jl. Mayor Oking, Cibinong"
+      },
       "km": "",
       "lat": -6.473037,
       "lng": 106.863626,
-      "note": "The crew notes pair Bina Husada with Mitra Keluarga, both off the main road on Jl. Mayor Oking. OpenStreetMap still labels this building Bina Husada. No phone in the crew notes.",
+      "note": {
+        "en": "The crew notes pair Bina Husada with Mitra Keluarga, both off the main road on Jl. Mayor Oking. OpenStreetMap still labels this building Bina Husada. No phone in the crew notes.",
+        "id": "Catatan kru memasangkan Bina Husada dengan Mitra Keluarga, keduanya di luar jalan utama di Jl. Mayor Oking. OpenStreetMap masih menulis gedung ini sebagai Bina Husada. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "sentra-cibinong",
-      "name": "RS Sentra Medika Cibinong",
+      "name": {
+        "en": "RS Sentra Medika Cibinong",
+        "id": "RS Sentra Medika Cibinong"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Mayor Oking, Cibinong",
+      "address": {
+        "en": "Jl. Mayor Oking, Cibinong",
+        "id": "Jl. Mayor Oking, Cibinong"
+      },
       "km": "",
       "lat": -6.480687,
       "lng": 106.864991,
-      "note": "Same side street as Mitra Keluarga / Bina Husada. No phone in the crew notes.",
+      "note": {
+        "en": "Same side street as Mitra Keluarga / Bina Husada. No phone in the crew notes.",
+        "id": "Jalan samping yang sama dengan Mitra Keluarga / Bina Husada. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "rsud-cibinong",
-      "name": "RSUD Cibinong",
+      "name": {
+        "en": "RSUD Cibinong",
+        "id": "RSUD Cibinong"
+      },
       "segment": "jakarta",
       "side": "detour",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. KSR Dadi Kusmayadi No. 27, Cibinong",
+      "address": {
+        "en": "Jl. KSR Dadi Kusmayadi No. 27, Cibinong",
+        "id": "Jl. KSR Dadi Kusmayadi No. 27, Cibinong"
+      },
       "km": "",
       "lat": -6.472985,
       "lng": 106.830064,
-      "note": "Large emergency room, a short way off Jl. Raya Bogor. No phone in the crew notes. The hospital website lists 021-8753487.",
+      "note": {
+        "en": "Large emergency room, a short way off Jl. Raya Bogor. No phone in the crew notes. The hospital website lists 021-8753487.",
+        "id": "IGD besar, sedikit di luar Jl. Raya Bogor. Tidak ada nomor telepon di catatan kru. Situs rumah sakit mencantumkan 021-8753487."
+      },
       "tel": ""
     },
     {
       "id": "assalam",
-      "name": "RS Assalam",
+      "name": {
+        "en": "RS Assalam",
+        "id": "RS Assalam"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "rsia",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "021-8753724",
-      "address": "Nanggewer Mekar, Cibinong",
+      "address": {
+        "en": "Nanggewer Mekar, Cibinong",
+        "id": "Nanggewer Mekar, Cibinong"
+      },
       "km": "KM 46.7",
       "lat": -6.500206,
       "lng": 106.843365,
-      "note": "OpenStreetMap lists this building as RSIA Assalam.",
+      "note": {
+        "en": "OpenStreetMap lists this building as RSIA Assalam.",
+        "id": "OpenStreetMap mencatat gedung ini sebagai RSIA Assalam."
+      },
       "tel": "+62218753724"
     },
     {
       "id": "azra",
-      "name": "RS Azra",
+      "name": {
+        "en": "RS Azra",
+        "id": "RS Azra"
+      },
       "segment": "jakarta",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0251-6900420",
-      "address": "Jl. Pajajaran No. 219, Bogor",
+      "address": {
+        "en": "Jl. Pajajaran No. 219, Bogor",
+        "id": "Jl. Pajajaran No. 219, Bogor"
+      },
       "km": "",
       "lat": -6.57917,
       "lng": 106.807772,
-      "note": "Where Jl. Raya Bogor ends at Warung Jambu. One of the larger emergency rooms before the Puncak climb.",
+      "note": {
+        "en": "Where Jl. Raya Bogor ends at Warung Jambu. One of the larger emergency rooms before the Puncak climb.",
+        "id": "Di ujung Jl. Raya Bogor, Warung Jambu. Salah satu IGD yang lebih besar sebelum tanjakan Puncak."
+      },
       "tel": "+622516900420"
     },
     {
       "id": "ciawi",
-      "name": "RSUD Ciawi (Dr. K.H. Idham Chalid)",
+      "name": {
+        "en": "RSUD Ciawi (Dr. K.H. Idham Chalid)",
+        "id": "RSUD Ciawi (Dr. K.H. Idham Chalid)"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0251-8240797",
-      "address": "Jl. Raya Puncak No. 479, Ciawi",
+      "address": {
+        "en": "Jl. Raya Puncak No. 479, Ciawi",
+        "id": "Jl. Raya Puncak No. 479, Ciawi"
+      },
       "km": "",
       "lat": -6.660367,
       "lng": 106.853115,
-      "note": "Largest general hospital before the Puncak climb.",
+      "note": {
+        "en": "Largest general hospital before the Puncak climb.",
+        "id": "Rumah sakit umum terbesar sebelum tanjakan Puncak."
+      },
       "tel": "+622518240797"
     },
     {
       "id": "rspg",
-      "name": "RS Paru Dr. M. Goenawan Partowidigdo",
+      "name": {
+        "en": "RS Paru Dr. M. Goenawan Partowidigdo",
+        "id": "RS Paru Dr. M. Goenawan Partowidigdo"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0251-8253630",
-      "address": "Jl. Raya Puncak, Cibeureum, Cisarua",
+      "address": {
+        "en": "Jl. Raya Puncak, Cibeureum, Cisarua",
+        "id": "Jl. Raya Puncak, Cibeureum, Cisarua"
+      },
       "km": "KM 83",
       "lat": -6.688213,
       "lng": 106.939556,
-      "note": "Ministry of Health lung hospital. The emergency room also takes general cases.",
+      "note": {
+        "en": "Ministry of Health lung hospital. The emergency room also takes general cases.",
+        "id": "Rumah sakit paru milik Kementerian Kesehatan. IGD-nya juga menerima kasus umum."
+      },
       "tel": "+622518253630"
     },
     {
       "id": "as-shifa",
-      "name": "Klinik As-Shifa Tugu",
+      "name": {
+        "en": "Klinik As-Shifa Tugu",
+        "id": "Klinik As-Shifa Tugu"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "clinic",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
-      "exact": false,
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
+      "exact": true,
       "phone": "0251-8252888",
-      "address": "Tugu Utara, Cisarua",
+      "address": {
+        "en": "Jl. Raya Puncak KM 84, Leuwimalang, Tugu Utara",
+        "id": "Jl. Raya Puncak KM 84, Leuwimalang, Tugu Utara"
+      },
       "km": "KM 84",
-      "lat": -6.69088,
-      "lng": 106.94821,
-      "note": "Clinic, not a hospital. Last stop for first aid before the pass. The building was not on the map; the pin is about 1 km past the lung hospital toward Puncak Pass. Confirm it on the ground.",
+      "lat": -6.685695,
+      "lng": 106.9559,
+      "note": {
+        "en": "Clinic, not a hospital. Last stop for first aid before the pass. The pin is the mapped Klinik Tugu at KM 84, which matches the As-Shifa listing and this phone.",
+        "id": "Klinik, bukan rumah sakit. Pertolongan pertama terakhir sebelum puncak. Pin ini adalah Klinik Tugu di peta, KM 84, yang cocok dengan daftar As-Shifa dan nomor telepon ini."
+      },
       "tel": "+622518252888"
     },
     {
       "id": "gap-puncak",
-      "name": "No hospital: Puncak Pass",
+      "name": {
+        "en": "No hospital: Puncak Pass",
+        "id": "Tidak ada rumah sakit: Puncak Pass"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "gap",
       "major_er": false,
       "open24": false,
-      "hours": "",
+      "hours": {
+        "en": "",
+        "id": ""
+      },
       "exact": true,
       "phone": "",
-      "address": "Tugu Utara to Cipanas",
+      "address": {
+        "en": "Tugu Utara to Cipanas",
+        "id": "Tugu Utara sampai Cipanas"
+      },
       "km": "",
       "lat": -6.705015,
       "lng": 106.994,
-      "note": "The longest stretch without a hospital. The road crosses Puncak Pass and Gunung Mas. Next referral is RSUD Cimacan in Cipanas.",
+      "note": {
+        "en": "The longest stretch without a hospital. The road crosses Puncak Pass and Gunung Mas. Next referral is RSUD Cimacan in Cipanas.",
+        "id": "Ruas terpanjang tanpa rumah sakit. Jalan melewati Puncak Pass dan Gunung Mas. Rujukan berikutnya adalah RSUD Cimacan di Cipanas."
+      },
       "tel": ""
     },
     {
       "id": "hanjawar",
-      "name": "RS Hanjawar",
+      "name": {
+        "en": "RS Hanjawar",
+        "id": "RS Hanjawar"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
-      "exact": false,
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
+      "exact": true,
       "phone": "0263-2951443",
-      "address": "Jl. Hanjawar, Cimacan, Cipanas",
-      "km": "KM 86 area",
-      "lat": -6.714857,
-      "lng": 107.024377,
-      "note": "Small hospital. The crew notes say reviews are poor. The pin is the Hanjawar area on Jl. Raya Puncak; the building on Jl. Hanjawar was not mapped separately.",
+      "address": {
+        "en": "Jl. Hanjawar No. 127B, Cimacan, Cipanas",
+        "id": "Jl. Hanjawar No. 127B, Cimacan, Cipanas"
+      },
+      "km": "",
+      "lat": -6.712338,
+      "lng": 107.021172,
+      "note": {
+        "en": "Small hospital. The crew notes say reviews are poor. The pin is the published map point for this phone. The earlier estimate was the midwife clinic at KM 86, a different building.",
+        "id": "Rumah sakit kecil. Catatan kru menyebut ulasannya kurang baik. Pin ini adalah titik peta yang terbit untuk nomor telepon ini. Perkiraan sebelumnya adalah klinik bidan di KM 86, gedung yang berbeda."
+      },
       "tel": "+622632951443"
     },
     {
       "id": "cimacan",
-      "name": "RSUD Cimacan",
+      "name": {
+        "en": "RSUD Cimacan",
+        "id": "RSUD Cimacan"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Raya Cimacan No. 17A, Cipanas",
+      "address": {
+        "en": "Jl. Raya Cimacan No. 17A, Cipanas",
+        "id": "Jl. Raya Cimacan No. 17A, Cipanas"
+      },
       "km": "",
       "lat": -6.721763,
       "lng": 107.033369,
-      "note": "Main referral for north Cianjur. Emergency room is 24 hours. The pin is the road beside the hospital. No phone in the crew notes.",
+      "note": {
+        "en": "Main referral for north Cianjur. Emergency room is 24 hours. The pin is the road beside the hospital. No phone in the crew notes.",
+        "id": "Rujukan utama Cianjur utara. IGD buka 24 jam. Pin ada di jalan di samping rumah sakit. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "sayang",
-      "name": "RSUD Sayang Cianjur",
+      "name": {
+        "en": "RSUD Sayang Cianjur",
+        "id": "RSUD Sayang Cianjur"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0263-261026",
-      "address": "Jl. Rumah Sakit No. 1, Cianjur",
+      "address": {
+        "en": "Jl. Rumah Sakit No. 1, Cianjur",
+        "id": "Jl. Rumah Sakit No. 1, Cianjur"
+      },
       "km": "",
       "lat": -6.809971,
       "lng": 107.140994,
-      "note": "Class B. Largest referral hospital in Cianjur.",
+      "note": {
+        "en": "Class B. Largest referral hospital in Cianjur.",
+        "id": "Kelas B. Rumah sakit rujukan terbesar di Cianjur."
+      },
       "tel": "+62263261026"
     },
     {
       "id": "bhayangkara-cianjur",
-      "name": "RS Bhayangkara Cianjur",
+      "name": {
+        "en": "RS Bhayangkara Cianjur",
+        "id": "RS Bhayangkara Cianjur"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0263-285299",
-      "address": "Jl. Suroso No. 21, Cianjur",
+      "address": {
+        "en": "Jl. Suroso No. 21, Cianjur",
+        "id": "Jl. Suroso No. 21, Cianjur"
+      },
       "km": "",
       "lat": -6.818942,
       "lng": 107.140597,
-      "note": "Police hospital in Cianjur city. OpenStreetMap places it on Jl. Taifur Yusuf.",
+      "note": {
+        "en": "Police hospital in Cianjur city. OpenStreetMap places it on Jl. Taifur Yusuf.",
+        "id": "Rumah sakit polisi di kota Cianjur. OpenStreetMap menaruhnya di Jl. Taifur Yusuf."
+      },
       "tel": "+62263285299"
     },
     {
       "id": "hasna",
-      "name": "Klinik Jantung Hasna Medika",
+      "name": {
+        "en": "Klinik Jantung Hasna Medika",
+        "id": "Klinik Jantung Hasna Medika"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "clinic",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0263-5681741",
-      "address": "Jl. Raya Bandung, Bojong, Karangtengah",
+      "address": {
+        "en": "Jl. Raya Bandung, Bojong, Karangtengah",
+        "id": "Jl. Raya Bandung, Bojong, Karangtengah"
+      },
       "km": "",
       "lat": -6.80769,
       "lng": 107.156068,
-      "note": "Heart clinic, not a general hospital.",
+      "note": {
+        "en": "Heart clinic, not a general hospital.",
+        "id": "Klinik jantung, bukan rumah sakit umum."
+      },
       "tel": "+622635681741"
     },
     {
       "id": "edelweiss",
-      "name": "RS Edelweiss Bentang Salapan",
+      "name": {
+        "en": "RS Edelweiss Bentang Salapan",
+        "id": "RS Edelweiss Bentang Salapan"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
-      "exact": false,
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
+      "exact": true,
       "phone": "0263-5600999",
-      "address": "Jl. Raya Bandung, Bojong / Sabandar, Karangtengah",
-      "km": "KM 3",
-      "lat": -6.8089,
-      "lng": 107.1703,
-      "note": "General hospital. The building pin was not found; this is Desa Bojong in Karangtengah, on the road toward Bandung. Confirm the gate before relying on it.",
+      "address": {
+        "en": "Jl. Raya Bandung KM 17, Bojong, Karangtengah",
+        "id": "Jl. Raya Bandung KM 17, Bojong, Karangtengah"
+      },
+      "km": "KM 17",
+      "lat": -6.803138,
+      "lng": 107.171578,
+      "note": {
+        "en": "General hospital on Jl. Nasional III. The crew notes name the road; the hospital's own address is KM 17 in Desa Bojong. The pin is that published map point, beside the road.",
+        "id": "Rumah sakit umum di Jl. Nasional III. Catatan kru menyebut nama jalannya; alamat rumah sakit sendiri adalah KM 17 di Desa Bojong. Pin ini adalah titik peta yang terbit itu, di tepi jalan."
+      },
       "tel": "+622635600999"
     },
     {
       "id": "hafiz",
-      "name": "RS Dr. Hafiz (RSDH)",
+      "name": {
+        "en": "RS Dr. Hafiz (RSDH)",
+        "id": "RS Dr. Hafiz (RSDH)"
+      },
       "segment": "puncak",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0263-2910000",
-      "address": "Jl. Pramuka No. 15, Karangtengah",
+      "address": {
+        "en": "Jl. Pramuka No. 15, Karangtengah",
+        "id": "Jl. Pramuka No. 15, Karangtengah"
+      },
       "km": "",
       "lat": -6.797953,
       "lng": 107.174813,
-      "note": "General hospital at the east edge of Cianjur, where the Padalarang road begins.",
+      "note": {
+        "en": "General hospital at the east edge of Cianjur, where the Padalarang road begins.",
+        "id": "Rumah sakit umum di tepi timur Cianjur, tempat jalan ke Padalarang dimulai."
+      },
       "tel": "+622632910000"
     },
     {
       "id": "tungturunan",
-      "name": "RB Tungturunan / Klinik Bidan Ajeng",
+      "name": {
+        "en": "RB Tungturunan / Klinik Bidan Ajeng",
+        "id": "RB Tungturunan / Klinik Bidan Ajeng"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "clinic",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
-      "exact": false,
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
+      "exact": true,
       "phone": "",
-      "address": "Sukaluyu, Cianjur",
+      "address": {
+        "en": "Jl. Selajambe No. 1, Hegarmanah, Sukaluyu",
+        "id": "Jl. Selajambe No. 1, Hegarmanah, Sukaluyu"
+      },
       "km": "",
-      "lat": -6.812,
-      "lng": 107.21,
-      "note": "Maternity home, not a hospital. Placed on the Cianjur–Ciranjang road in Sukaluyu. The building was not on the map.",
+      "lat": -6.810301,
+      "lng": 107.233345,
+      "note": {
+        "en": "Maternity home, not a hospital. Published map point on Jl. Selajambe, about 350 m off the Cianjur–Ciranjang road. No phone in the crew notes.",
+        "id": "Rumah bersalin, bukan rumah sakit. Titik peta yang terbit di Jl. Selajambe, sekitar 350 m dari jalan Cianjur–Ciranjang. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "ciranjang",
-      "name": "Puskesmas Rawat Inap Ciranjang",
+      "name": {
+        "en": "Puskesmas Rawat Inap Ciranjang",
+        "id": "Puskesmas Rawat Inap Ciranjang"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "puskesmas",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0263-322306",
-      "address": "Jl. Rumah Sakit No. 194, Ciranjang",
+      "address": {
+        "en": "Jl. Rumah Sakit No. 194, Ciranjang",
+        "id": "Jl. Rumah Sakit No. 194, Ciranjang"
+      },
       "km": "",
       "lat": -6.813966,
       "lng": 107.244307,
-      "note": "Open overnight, but set back from the main road.",
+      "note": {
+        "en": "Open overnight, but set back from the main road.",
+        "id": "Buka semalaman, tetapi letaknya agak masuk dari jalan raya."
+      },
       "tel": "+62263322306"
     },
     {
       "id": "citra-insani",
-      "name": "Klinik Citra Insani Husada",
+      "name": {
+        "en": "Klinik Citra Insani Husada",
+        "id": "Klinik Citra Insani Husada"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "clinic",
       "major_er": false,
       "open24": false,
-      "hours": "07:00–21:00",
+      "hours": {
+        "en": "07:00–21:00",
+        "id": "07:00–21:00"
+      },
       "exact": false,
       "phone": "022-6903108",
-      "address": "Rajamandala Kulon",
+      "address": {
+        "en": "Rajamandala Kulon",
+        "id": "Rajamandala Kulon"
+      },
       "km": "",
       "lat": -6.832706,
       "lng": 107.351221,
-      "note": "Inpatient primary clinic. Closed overnight. Pin is Rajamandala Kulon; the building was not mapped.",
+      "note": {
+        "en": "Inpatient primary clinic. Closed overnight. An old clinic notice gives Kp. Ciburahol No. 41 in Rajamandala Kulon. A map point about 1.4 km north of the road was not confirmed as that building, so the pin stays on the Rajamandala Kulon road.",
+        "id": "Klinik pratama rawat inap. Tutup semalaman. Pemberitahuan lama menyebut Kp. Ciburahol No. 41 di Rajamandala Kulon. Titik peta sekitar 1,4 km di utara jalan belum terkonfirmasi sebagai gedung itu, jadi pin tetap di jalan Rajamandala Kulon."
+      },
       "tel": "+62226903108"
     },
     {
       "id": "rajamandala",
-      "name": "Puskesmas DTP Rajamandala",
+      "name": {
+        "en": "Puskesmas DTP Rajamandala",
+        "id": "Puskesmas DTP Rajamandala"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "puskesmas",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": false,
       "phone": "",
-      "address": "Jl. Raya Cipatat, Rajamandala",
+      "address": {
+        "en": "Jl. Raya Cipatat, Rajamandala",
+        "id": "Jl. Raya Cipatat, Rajamandala"
+      },
       "km": "",
       "lat": -6.83263,
       "lng": 107.348734,
-      "note": "Crew notes describe a 24-hour puskesmas on Jl. Raya Cipatat. The mapped point nearby is a puskesmas pembantu. Confirm which gate is staffed overnight.",
+      "note": {
+        "en": "Crew notes describe a 24-hour puskesmas on Jl. Raya Cipatat. This pin is still the mapped puskesmas pembantu in Rajamandala Kulon. A directory lists Jl. Raya Cipatat No. 1, but no separate building coordinate was found.",
+        "id": "Catatan kru menyebut puskesmas 24 jam di Jl. Raya Cipatat. Pin ini masih puskesmas pembantu yang ada di peta, di Rajamandala Kulon. Sebuah direktori menulis Jl. Raya Cipatat No. 1, tetapi koordinat gedung yang terpisah tidak ditemukan."
+      },
       "tel": ""
     },
     {
       "id": "rahmani",
-      "name": "Klinik Rahmani Medical",
+      "name": {
+        "en": "Klinik Rahmani Medical",
+        "id": "Klinik Rahmani Medical"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "clinic",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": false,
       "phone": "",
-      "address": "Jl. Raya Cipatat KM 32",
+      "address": {
+        "en": "Jl. Raya Cipatat KM 32 No. 25, Cipatat",
+        "id": "Jl. Raya Cipatat KM 32 No. 25, Cipatat"
+      },
       "km": "KM 32",
-      "lat": -6.822039,
-      "lng": 107.386046,
-      "note": "Open overnight. The building was not on the map; the pin is Cipatat town on Jl. Raya Cipatat.",
+      "lat": -6.824371,
+      "lng": 107.383934,
+      "note": {
+        "en": "Open overnight. The pin is a published map point for KM 32 on Jl. Raya Cipatat. OpenStreetMap does not name the building, so confirm the gate.",
+        "id": "Buka semalaman. Pin ini adalah titik peta yang terbit untuk KM 32 di Jl. Raya Cipatat. OpenStreetMap tidak menulis nama gedungnya, jadi pastikan gerbangnya."
+      },
       "tel": ""
     },
     {
       "id": "gap-citatah",
-      "name": "No general hospital: Cipatat cliffs",
+      "name": {
+        "en": "No general hospital: Cipatat cliffs",
+        "id": "Tidak ada RS umum: tebing Cipatat"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "gap",
       "major_er": false,
       "open24": false,
-      "hours": "",
+      "hours": {
+        "en": "",
+        "id": ""
+      },
       "exact": true,
       "phone": "",
-      "address": "Sukaluyu to Citatah",
+      "address": {
+        "en": "Sukaluyu to Citatah",
+        "id": "Sukaluyu sampai Citatah"
+      },
       "km": "",
       "lat": -6.825,
       "lng": 107.42,
-      "note": "About 40 km from Sukaluyu to Citatah with no general hospital, including the limestone cliffs between Cipatat and Citatah. Only a maternity home, puskesmas, and clinics. Next general hospitals are in Padalarang.",
+      "note": {
+        "en": "About 40 km from Sukaluyu to Citatah with no general hospital, including the limestone cliffs between Cipatat and Citatah. Only a maternity home, puskesmas, and clinics. Next general hospitals are in Padalarang.",
+        "id": "Sekitar 40 km dari Sukaluyu sampai Citatah tanpa rumah sakit umum, termasuk tebing kapur antara Cipatat dan Citatah. Yang ada hanya rumah bersalin, puskesmas, dan klinik. Rumah sakit umum berikutnya ada di Padalarang."
+      },
       "tel": ""
     },
     {
       "id": "kartini",
-      "name": "RSIA Kartini Padalarang",
+      "name": {
+        "en": "RSIA Kartini Padalarang",
+        "id": "RSIA Kartini Padalarang"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "rsia",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Letkol G.A. Manulang No. 46, Padalarang",
+      "address": {
+        "en": "Jl. Letkol G.A. Manulang No. 46, Padalarang",
+        "id": "Jl. Letkol G.A. Manulang No. 46, Padalarang"
+      },
       "km": "",
       "lat": -6.843775,
       "lng": 107.480389,
-      "note": "Mother-and-child hospital in Padalarang town. No phone in the crew notes.",
+      "note": {
+        "en": "Mother-and-child hospital in Padalarang town. No phone in the crew notes.",
+        "id": "Rumah sakit ibu dan anak di kota Padalarang. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "graha-medika",
-      "name": "Graha Medika Padalarang",
+      "name": {
+        "en": "Graha Medika Padalarang",
+        "id": "Graha Medika Padalarang"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Raya Padalarang, Komplek Padalarang Point",
+      "address": {
+        "en": "Jl. Raya Padalarang, Komplek Padalarang Point",
+        "id": "Jl. Raya Padalarang, Komplek Padalarang Point"
+      },
       "km": "",
       "lat": -6.844625,
       "lng": 107.486268,
-      "note": "In Padalarang town. No phone in the crew notes.",
+      "note": {
+        "en": "In Padalarang town. No phone in the crew notes.",
+        "id": "Di kota Padalarang. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "cahya",
-      "name": "RS Cahya Kawaluyan",
+      "name": {
+        "en": "RS Cahya Kawaluyan",
+        "id": "RS Cahya Kawaluyan"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Parahyangan Raya, near the Padalarang toll exit",
+      "address": {
+        "en": "Jl. Parahyangan Raya, near the Padalarang toll exit",
+        "id": "Jl. Parahyangan Raya, dekat exit tol Padalarang"
+      },
       "km": "KM 3",
       "lat": -6.865514,
       "lng": 107.473805,
-      "note": "Large general hospital south of Padalarang town, toward Kota Baru Parahyangan. Useful if you are already near the toll exit. No phone in the crew notes.",
+      "note": {
+        "en": "Large general hospital south of Padalarang town, toward Kota Baru Parahyangan. Useful if you are already near the toll exit. No phone in the crew notes.",
+        "id": "Rumah sakit umum besar di selatan kota Padalarang, ke arah Kota Baru Parahyangan. Berguna kalau sudah dekat exit tol. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "parahyangan",
-      "name": "Parahyangan Hospital",
+      "name": {
+        "en": "Parahyangan Hospital",
+        "id": "Parahyangan Hospital"
+      },
       "segment": "cianjur",
       "side": "road",
       "kind": "rsia",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "022-86808000",
-      "address": "Kota Baru Parahyangan",
+      "address": {
+        "en": "Kota Baru Parahyangan",
+        "id": "Kota Baru Parahyangan"
+      },
       "km": "",
       "lat": -6.866317,
       "lng": 107.463391,
-      "note": "Mother-and-child hospital in Kota Baru Parahyangan, south of the town road.",
+      "note": {
+        "en": "Mother-and-child hospital in Kota Baru Parahyangan, south of the town road.",
+        "id": "Rumah sakit ibu dan anak di Kota Baru Parahyangan, di selatan jalan kota."
+      },
       "tel": "+622286808000"
     },
     {
       "id": "karisma",
-      "name": "RS Karisma Cimareme",
+      "name": {
+        "en": "RS Karisma Cimareme",
+        "id": "RS Karisma Cimareme"
+      },
       "segment": "cimahi",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0831-1464-6747",
-      "address": "Jl. Raya Cimareme No. 235",
+      "address": {
+        "en": "Jl. Raya Cimareme No. 235",
+        "id": "Jl. Raya Cimareme No. 235"
+      },
       "km": "",
       "lat": -6.863328,
       "lng": 107.50297,
-      "note": "Near the Padalarang toll exit, on the road into Cimahi.",
+      "note": {
+        "en": "Near the Padalarang toll exit, on the road into Cimahi.",
+        "id": "Dekat exit tol Padalarang, di jalan masuk ke Cimahi."
+      },
       "tel": "+6283114646747"
     },
     {
       "id": "imc",
-      "name": "RS IMC Cimareme",
+      "name": {
+        "en": "RS IMC Cimareme",
+        "id": "RS IMC Cimareme"
+      },
       "segment": "cimahi",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "0857-8555-5170",
-      "address": "Jl. Raya Gadobangkong No. 173",
+      "address": {
+        "en": "Jl. Raya Gadobangkong No. 173",
+        "id": "Jl. Raya Gadobangkong No. 173"
+      },
       "km": "",
       "lat": -6.86318,
       "lng": 107.510206,
-      "note": "OpenStreetMap names this building Rumah Sakit Indra Medical, on Jl. Raya Gadobangkong.",
+      "note": {
+        "en": "OpenStreetMap names this building Rumah Sakit Indra Medical, on Jl. Raya Gadobangkong.",
+        "id": "OpenStreetMap menamai gedung ini Rumah Sakit Indra Medical, di Jl. Raya Gadobangkong."
+      },
       "tel": "+6285785555170"
     },
     {
       "id": "cibabat",
-      "name": "RSUD Cibabat",
+      "name": {
+        "en": "RSUD Cibabat",
+        "id": "RSUD Cibabat"
+      },
       "segment": "cimahi",
       "side": "road",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "022-6652025",
-      "address": "Jl. Jenderal H. Amir Machmud No. 140, Cimahi",
+      "address": {
+        "en": "Jl. Jenderal H. Amir Machmud No. 140, Cimahi",
+        "id": "Jl. Jenderal H. Amir Machmud No. 140, Cimahi"
+      },
       "km": "",
       "lat": -6.87968,
       "lng": 107.55036,
-      "note": "Cimahi city hospital. One of the two largest emergency rooms on this stretch. Pin is the stop on Jl. Amir Machmud in front of the hospital.",
+      "note": {
+        "en": "Cimahi city hospital. One of the two largest emergency rooms on this stretch. Pin is the stop on Jl. Amir Machmud in front of the hospital.",
+        "id": "Rumah sakit kota Cimahi. Salah satu dari dua IGD terbesar di ruas ini. Pin ada di halte Jl. Amir Machmud di depan rumah sakit."
+      },
       "tel": "+62226652025"
     },
     {
       "id": "mitra-kasih",
-      "name": "RS Mitra Kasih",
+      "name": {
+        "en": "RS Mitra Kasih",
+        "id": "RS Mitra Kasih"
+      },
       "segment": "cimahi",
       "side": "road",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "022-6652774",
-      "address": "Jl. Jenderal H. Amir Machmud No. 341, Cimahi",
+      "address": {
+        "en": "Jl. Jenderal H. Amir Machmud No. 341, Cimahi",
+        "id": "Jl. Jenderal H. Amir Machmud No. 341, Cimahi"
+      },
       "km": "",
       "lat": -6.884251,
       "lng": 107.552773,
-      "note": "On the same road as RSUD Cibabat, further toward Cibeureum.",
+      "note": {
+        "en": "On the same road as RSUD Cibabat, further toward Cibeureum.",
+        "id": "Di jalan yang sama dengan RSUD Cibabat, lebih ke arah Cibeureum."
+      },
       "tel": "+62226652774"
     },
     {
       "id": "dustira",
-      "name": "RS Tk. II Dustira",
+      "name": {
+        "en": "RS Tk. II Dustira",
+        "id": "RS Tk. II Dustira"
+      },
       "segment": "cimahi",
       "side": "detour",
       "kind": "hospital",
       "major_er": true,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "022-6652207",
-      "address": "Jl. Dustira No. 1, Baros, Cimahi",
+      "address": {
+        "en": "Jl. Dustira No. 1, Baros, Cimahi",
+        "id": "Jl. Dustira No. 1, Baros, Cimahi"
+      },
       "km": "",
       "lat": -6.886595,
       "lng": 107.534231,
-      "note": "Large army hospital, about 1–2 km off Jl. Amir Machmud. Main emergency referral in Cimahi, together with RSUD Cibabat.",
+      "note": {
+        "en": "Large army hospital, about 1–2 km off Jl. Amir Machmud. Main emergency referral in Cimahi, together with RSUD Cibabat.",
+        "id": "Rumah sakit tentara yang besar, sekitar 1–2 km dari Jl. Amir Machmud. Rujukan IGD utama di Cimahi, bersama RSUD Cibabat."
+      },
       "tel": "+62226652207"
     },
     {
       "id": "baros",
-      "name": "RSU Baros",
+      "name": {
+        "en": "RSU Baros",
+        "id": "RSU Baros"
+      },
       "segment": "cimahi",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Baros, Cimahi Tengah",
+      "address": {
+        "en": "Jl. Baros, Cimahi Tengah",
+        "id": "Jl. Baros, Cimahi Tengah"
+      },
       "km": "",
       "lat": -6.891446,
       "lng": 107.536899,
-      "note": "Short detour. No phone in the crew notes.",
+      "note": {
+        "en": "Short detour. No phone in the crew notes.",
+        "id": "Sedikit menyimpang. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     },
     {
       "id": "kasih-bunda",
-      "name": "RSU Kasih Bunda",
+      "name": {
+        "en": "RSU Kasih Bunda",
+        "id": "RSU Kasih Bunda"
+      },
       "segment": "cimahi",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "022-6614221",
-      "address": "Jl. Mahar Martanegara No. 166, Cimahi",
+      "address": {
+        "en": "Jl. Mahar Martanegara No. 166, Cimahi",
+        "id": "Jl. Mahar Martanegara No. 166, Cimahi"
+      },
       "km": "",
       "lat": -6.90024,
       "lng": 107.547196,
-      "note": "About 1–2 km off the main road.",
+      "note": {
+        "en": "About 1–2 km off the main road.",
+        "id": "Sekitar 1–2 km dari jalan utama."
+      },
       "tel": "+62226614221"
     },
     {
       "id": "mitra-anugrah",
-      "name": "RS Mitra Anugrah Lestari",
+      "name": {
+        "en": "RS Mitra Anugrah Lestari",
+        "id": "RS Mitra Anugrah Lestari"
+      },
       "segment": "cimahi",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "022-6027204",
-      "address": "Jl. Cibaligo No. 76, near Cibeureum",
+      "address": {
+        "en": "Jl. Cibaligo No. 76, near Cibeureum",
+        "id": "Jl. Cibaligo No. 76, dekat Cibeureum"
+      },
       "km": "",
       "lat": -6.900778,
       "lng": 107.555696,
-      "note": "Close to Cibeureum, just off Jl. Amir Machmud.",
+      "note": {
+        "en": "Close to Cibeureum, just off Jl. Amir Machmud.",
+        "id": "Dekat Cibeureum, tepat di luar Jl. Amir Machmud."
+      },
       "tel": "+62226027204"
     },
     {
       "id": "cibeureum",
-      "name": "Puskesmas Cibeureum",
+      "name": {
+        "en": "Puskesmas Cibeureum",
+        "id": "Puskesmas Cibeureum"
+      },
       "segment": "cimahi",
       "side": "road",
       "kind": "puskesmas",
       "major_er": false,
       "open24": false,
-      "hours": "07:30–14:30",
+      "hours": {
+        "en": "07:30–14:30",
+        "id": "07:30–14:30"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Jenderal H. Amir Machmud No. 126, Cibeureum",
+      "address": {
+        "en": "Jl. Jenderal H. Amir Machmud No. 126, Cibeureum",
+        "id": "Jl. Jenderal H. Amir Machmud No. 126, Cibeureum"
+      },
       "km": "",
       "lat": -6.900583,
       "lng": 107.562561,
-      "note": "Puskesmas, not a hospital. Daytime only. Do not count on it during the night legs.",
+      "note": {
+        "en": "Puskesmas, not a hospital. Daytime only. Do not count on it during the night legs.",
+        "id": "Puskesmas, bukan rumah sakit. Hanya siang hari. Jangan diandalkan pada etape malam."
+      },
       "tel": ""
     },
     {
       "id": "avisena",
-      "name": "RSU Avisena",
+      "name": {
+        "en": "RSU Avisena",
+        "id": "RSU Avisena"
+      },
       "segment": "cimahi",
       "side": "detour",
       "kind": "hospital",
       "major_er": false,
       "open24": true,
-      "hours": "24 hours",
+      "hours": {
+        "en": "24 hours",
+        "id": "24 jam"
+      },
       "exact": true,
       "phone": "",
-      "address": "Jl. Melong No. 170, Cimahi Selatan",
+      "address": {
+        "en": "Jl. Melong No. 170, Cimahi Selatan",
+        "id": "Jl. Melong No. 170, Cimahi Selatan"
+      },
       "km": "",
       "lat": -6.921782,
       "lng": 107.555953,
-      "note": "South of Cibeureum, toward the Bandung approach. No phone in the crew notes.",
+      "note": {
+        "en": "South of Cibeureum, toward the Bandung approach. No phone in the crew notes.",
+        "id": "Di selatan Cibeureum, ke arah pendekatan Bandung. Tidak ada nomor telepon di catatan kru."
+      },
       "tel": ""
     }
   ]

@@ -3,10 +3,22 @@ import json
 import re
 from pathlib import Path
 
+from id_copy import ADDRESSES, FINISH, NAMES, NOTES, SEGMENTS, START
+
 ROOT = Path(__file__).resolve().parents[1]
 route = json.loads((Path(__file__).resolve().parent / "route-latlon.json").read_text())
 
 places = []
+
+
+def pair(en, id_text=None):
+    return {"en": en, "id": en if id_text is None else id_text}
+
+
+def hours_id(hours):
+    if hours == "24 hours":
+        return "24 jam"
+    return hours
 
 
 def add(**item):
@@ -17,11 +29,19 @@ def add(**item):
         if digits.startswith("0"):
             digits = "62" + digits[1:]
         tel = "+" + digits
+    place_id = item["id"]
+    if place_id not in NOTES:
+        raise SystemExit(f"Missing Indonesian note: {place_id}")
+    hours = item.get("hours") or ""
     item["phone"] = phone
     item["tel"] = tel
+    item["name"] = pair(item["name"], NAMES.get(place_id))
+    item["address"] = pair(item["address"], ADDRESSES.get(place_id))
+    item["hours"] = pair(hours, hours_id(hours))
+    item["note"] = pair(item["note"], NOTES[place_id])
     lat, lng = item["lat"], item["lng"]
     if not (-7.05 < lat < -6.15 and 106.7 < lng < 107.7):
-        raise SystemExit(f"Coordinate out of corridor: {item['id']} {lat},{lng}")
+        raise SystemExit(f"Coordinate out of corridor: {place_id} {lat},{lng}")
     places.append(item)
 
 
@@ -462,13 +482,13 @@ add(
     major_er=False,
     open24=True,
     hours="24 hours",
-    exact=False,
+    exact=True,
     phone="0251-8252888",
-    address="Tugu Utara, Cisarua",
+    address="Jl. Raya Puncak KM 84, Leuwimalang, Tugu Utara",
     km="KM 84",
-    lat=-6.69088,
-    lng=106.94821,
-    note="Clinic, not a hospital. Last stop for first aid before the pass. The building was not on the map; the pin is about 1 km past the lung hospital toward Puncak Pass. Confirm it on the ground.",
+    lat=-6.685695,
+    lng=106.955900,
+    note="Clinic, not a hospital. Last stop for first aid before the pass. The pin is the mapped Klinik Tugu at KM 84, which matches the As-Shifa listing and this phone.",
 )
 add(
     id="gap-puncak",
@@ -496,13 +516,13 @@ add(
     major_er=False,
     open24=True,
     hours="24 hours",
-    exact=False,
+    exact=True,
     phone="0263-2951443",
-    address="Jl. Hanjawar, Cimacan, Cipanas",
-    km="KM 86 area",
-    lat=-6.714857,
-    lng=107.024377,
-    note="Small hospital. The crew notes say reviews are poor. The pin is the Hanjawar area on Jl. Raya Puncak; the building on Jl. Hanjawar was not mapped separately.",
+    address="Jl. Hanjawar No. 127B, Cimacan, Cipanas",
+    km="",
+    lat=-6.712338,
+    lng=107.021172,
+    note="Small hospital. The crew notes say reviews are poor. The pin is the published map point for this phone. The earlier estimate was the midwife clinic at KM 86, a different building.",
 )
 add(
     id="cimacan",
@@ -581,13 +601,13 @@ add(
     major_er=False,
     open24=True,
     hours="24 hours",
-    exact=False,
+    exact=True,
     phone="0263-5600999",
-    address="Jl. Raya Bandung, Bojong / Sabandar, Karangtengah",
-    km="KM 3",
-    lat=-6.8089,
-    lng=107.1703,
-    note="General hospital. The building pin was not found; this is Desa Bojong in Karangtengah, on the road toward Bandung. Confirm the gate before relying on it.",
+    address="Jl. Raya Bandung KM 17, Bojong, Karangtengah",
+    km="KM 17",
+    lat=-6.803138,
+    lng=107.171578,
+    note="General hospital on Jl. Nasional III. The crew notes name the road; the hospital's own address is KM 17 in Desa Bojong. The pin is that published map point, beside the road.",
 )
 add(
     id="hafiz",
@@ -617,13 +637,13 @@ add(
     major_er=False,
     open24=True,
     hours="24 hours",
-    exact=False,
+    exact=True,
     phone="",
-    address="Sukaluyu, Cianjur",
+    address="Jl. Selajambe No. 1, Hegarmanah, Sukaluyu",
     km="",
-    lat=-6.812,
-    lng=107.210,
-    note="Maternity home, not a hospital. Placed on the Cianjur–Ciranjang road in Sukaluyu. The building was not on the map.",
+    lat=-6.810301,
+    lng=107.233345,
+    note="Maternity home, not a hospital. Published map point on Jl. Selajambe, about 350 m off the Cianjur–Ciranjang road. No phone in the crew notes.",
 )
 add(
     id="ciranjang",
@@ -657,7 +677,7 @@ add(
     km="",
     lat=-6.832706,
     lng=107.351221,
-    note="Inpatient primary clinic. Closed overnight. Pin is Rajamandala Kulon; the building was not mapped.",
+    note="Inpatient primary clinic. Closed overnight. An old clinic notice gives Kp. Ciburahol No. 41 in Rajamandala Kulon. A map point about 1.4 km north of the road was not confirmed as that building, so the pin stays on the Rajamandala Kulon road.",
 )
 add(
     id="rajamandala",
@@ -674,7 +694,7 @@ add(
     km="",
     lat=-6.832630,
     lng=107.348734,
-    note="Crew notes describe a 24-hour puskesmas on Jl. Raya Cipatat. The mapped point nearby is a puskesmas pembantu. Confirm which gate is staffed overnight.",
+    note="Crew notes describe a 24-hour puskesmas on Jl. Raya Cipatat. This pin is still the mapped puskesmas pembantu in Rajamandala Kulon. A directory lists Jl. Raya Cipatat No. 1, but no separate building coordinate was found.",
 )
 add(
     id="rahmani",
@@ -687,11 +707,11 @@ add(
     hours="24 hours",
     exact=False,
     phone="",
-    address="Jl. Raya Cipatat KM 32",
+    address="Jl. Raya Cipatat KM 32 No. 25, Cipatat",
     km="KM 32",
-    lat=-6.822039,
-    lng=107.386046,
-    note="Open overnight. The building was not on the map; the pin is Cipatat town on Jl. Raya Cipatat.",
+    lat=-6.824371,
+    lng=107.383934,
+    note="Open overnight. The pin is a published map point for KM 32 on Jl. Raya Cipatat. OpenStreetMap does not name the building, so confirm the gate.",
 )
 add(
     id="gap-citatah",
@@ -954,23 +974,35 @@ add(
 segments = [
     {
         "id": "jakarta",
-        "label": "Jakarta → Bogor",
-        "blurb": "Pasar Minggu and Jl. TB Simatupang, then Jl. Raya Bogor through Depok and Cibinong. Kramat Jati hospitals sit north of the Pasar Rebo junction and are missed on this entry.",
+        "label": pair("Jakarta → Bogor"),
+        "blurb": pair(
+            "Pasar Minggu and Jl. TB Simatupang, then Jl. Raya Bogor through Depok and Cibinong. Kramat Jati hospitals sit north of the Pasar Rebo junction and are missed on this entry.",
+            SEGMENTS["jakarta"],
+        ),
     },
     {
         "id": "puncak",
-        "label": "Bogor → Cianjur",
-        "blurb": "Ciawi, the Puncak climb, then Cipanas and Cianjur. There is no hospital between Tugu Utara and Cipanas.",
+        "label": pair("Bogor → Cianjur"),
+        "blurb": pair(
+            "Ciawi, the Puncak climb, then Cipanas and Cianjur. There is no hospital between Tugu Utara and Cipanas.",
+            SEGMENTS["puncak"],
+        ),
     },
     {
         "id": "cianjur",
-        "label": "Cianjur → Padalarang",
-        "blurb": "A thin stretch. About 40 km from Sukaluyu to Citatah has no general hospital, only a maternity home, puskesmas, and clinics.",
+        "label": pair("Cianjur → Padalarang"),
+        "blurb": pair(
+            "A thin stretch. About 40 km from Sukaluyu to Citatah has no general hospital, only a maternity home, puskesmas, and clinics.",
+            SEGMENTS["cianjur"],
+        ),
     },
     {
         "id": "cimahi",
-        "label": "Padalarang → Bandung",
-        "blurb": "Through Cimareme and Cimahi on Jl. Amir Machmud to Cibeureum. Largest emergency rooms here are RS Dustira and RSUD Cibabat.",
+        "label": pair("Padalarang → Bandung"),
+        "blurb": pair(
+            "Through Cimareme and Cimahi on Jl. Amir Machmud to Cibeureum. Largest emergency rooms here are RS Dustira and RSUD Cibabat.",
+            SEGMENTS["cimahi"],
+        ),
     },
 ]
 
@@ -978,18 +1010,21 @@ guide = {
     "routeKm": 194.3,
     "route": route,
     "start": {
-        "name": "Start",
-        "detail": "Graha BNI, Jl. Jenderal Sudirman, Jakarta",
+        "name": pair("Start", START["name"]),
+        "detail": pair("Graha BNI, Jl. Jenderal Sudirman, Jakarta"),
         "lat": -6.203565,
         "lng": 106.820427,
-        "note": "Published start area for ITB Ultra Marathon 2026. This is the Sudirman address, not a surveyed race GPS point.",
+        "note": pair(
+            "Published start area for ITB Ultra Marathon 2026. This is the Sudirman address, not a surveyed race GPS point.",
+            START["note"],
+        ),
     },
     "finish": {
-        "name": "Finish",
-        "detail": "Saraga ITB, Jl. Tamansari, Bandung",
+        "name": pair("Finish", FINISH["name"]),
+        "detail": pair("Saraga ITB, Jl. Tamansari, Bandung"),
         "lat": -6.886230,
         "lng": 107.609940,
-        "note": "Sarana Olahraga Ganesha, the published finish at ITB.",
+        "note": pair("Sarana Olahraga Ganesha, the published finish at ITB.", FINISH["note"]),
     },
     "segments": segments,
     "places": places,

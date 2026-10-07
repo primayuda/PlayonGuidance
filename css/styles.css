@@ -77,6 +77,39 @@ h1 {
   font-size: 0.92rem;
 }
 
+.head-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex: none;
+}
+
+.lang {
+  display: flex;
+  border: 1px solid #6b645b;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.lang button {
+  border: 0;
+  background: transparent;
+  color: #d9d0c3;
+  min-height: 2.2rem;
+  min-width: 2.5rem;
+  padding: 0.2rem 0.55rem;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.lang button[aria-pressed="true"] {
+  background: #f6f1e7;
+  color: var(--ink);
+}
+
 .ambulance {
   flex: none;
   display: inline-flex;
@@ -379,9 +412,9 @@ input:focus-visible {
   color: white;
   display: grid;
   place-items: center;
-  font-size: 0.62rem;
+  font-size: 0.55rem;
   font-weight: 800;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 .pin.approx {
   background: transparent;
@@ -436,6 +469,8 @@ body.map-full .top { display: none; }
 body.map-full .shell { height: 100vh; }
 
 @media (max-width: 860px) {
+  .top { flex-wrap: wrap; align-items: flex-start; }
+  .head-actions { align-self: center; }
   h1 { font-size: 1.4rem; }
   .sub { font-size: 0.82rem; }
   html, body { height: auto; overflow: auto; }
