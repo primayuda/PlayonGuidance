@@ -495,12 +495,48 @@ body.map-full #map {
 }
 
 @media (max-width: 860px) {
-  .top { flex-wrap: wrap; align-items: flex-start; }
-  .brand { flex: 1 1 100%; }
-  .logo { width: 2.75rem; height: 2.75rem; }
-  .head-actions { align-self: center; }
-  h1 { font-size: 1.4rem; }
-  .sub { font-size: 0.82rem; }
+  .top {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.55rem;
+    padding: 0.4rem 0.75rem 0.45rem;
+  }
+  .brand { flex: 1 1 100%; column-gap: 0.5rem; }
+  .logo { width: 2rem; height: 2rem; padding: 1px; }
+  .eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  h1 {
+    margin: 0;
+    font-size: 1.12rem;
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sub {
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .head-actions { align-self: center; gap: 0.4rem; }
+  .lang button {
+    min-height: 2rem;
+    min-width: 2.15rem;
+    padding: 0.1rem 0.45rem;
+  }
+  .ambulance {
+    min-height: 2rem;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.82rem;
+  }
   html, body { height: auto; overflow: auto; }
   body { display: block; }
   .shell {
@@ -513,7 +549,7 @@ body.map-full #map {
   .list { overflow: visible; }
   .map-wrap {
     order: -1;
-    height: 46vh;
+    height: 58vh;
     position: sticky;
     top: 0;
     z-index: 30;
