@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1c1915">
+  <title>Playon Guidance — hospitals on the ITB UM 2026 route</title>
+  <meta name="description" content="Hospitals, clinics, and emergency rooms along the ITB Ultra Marathon corridor from Jakarta to Bandung, with phones and a route map for the Playon support crew.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <p class="eyebrow">Playon 85 · ITB Ultra Marathon 2026</p>
+      <h1>Hospitals on the road</h1>
+      <p class="sub">16–18 October · Jakarta to Bandung · support-crew map</p>
+    </div>
+    <a class="ambulance" href="tel:119">Ambulance 119</a>
+  </header>
+
+  <div class="shell">
+    <aside class="panel">
+      <div class="tools">
+        <label class="search">
+          <span class="sr">Search hospitals</span>
+          <input id="search" type="search" placeholder="Search name, place, or phone" autocomplete="off">
+        </label>
+        <div class="filters" role="group" aria-label="Filter the list">
+          <button type="button" class="chip" data-filter="major" aria-pressed="false">Major ER</button>
+          <button type="button" class="chip" data-filter="overnight" aria-pressed="false">Open overnight</button>
+          <button type="button" class="chip" data-filter="road" aria-pressed="false">On the road</button>
+          <button type="button" class="chip" data-filter="detour" aria-pressed="false">Detours</button>
+        </div>
+        <div class="segments" id="segments" role="group" aria-label="Route section"></div>
+        <p class="count" id="count"></p>
+        <p class="blurb" id="blurb"></p>
+        <details class="about">
+          <summary>About these pins</summary>
+          <p>Phones and hours are from the Playon crew notes. Solid pins were matched to OpenStreetMap or a published map location. Hollow pins were estimated from a kilometer marker or the surrounding village, and should be confirmed before race day. The orange line is the driving corridor along those roads, about 194 km. It is a support reference, not the official race GPS.</p>
+        </details>
+      </div>
+      <div id="list" class="list"></div>
+    </aside>
+
+    <div class="map-wrap" id="map-wrap">
+      <div id="map" role="region" aria-label="Map of hospitals along the route"></div>
+      <div class="map-tools">
+        <button type="button" id="nearest">Nearest to me</button>
+        <button type="button" id="expand">Full map</button>
+      </div>
+      <p class="map-note" id="map-note" hidden></p>
+      <ul class="legend">
+        <li><i class="swatch er"></i>Major ER</li>
+        <li><i class="swatch hospital"></i>Hospital</li>
+        <li><i class="swatch rsia"></i>Mother &amp; child</li>
+        <li><i class="swatch clinic"></i>Clinic or puskesmas</li>
+        <li><i class="swatch approx"></i>Approximate pin</li>
+        <li><i class="swatch route"></i>Driving corridor</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
