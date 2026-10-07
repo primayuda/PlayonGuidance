@@ -7,6 +7,10 @@ const I18N = {
     id: "Rumah sakit, klinik, dan IGD di sepanjang koridor ITB Ultra Marathon dari Jakarta ke Bandung, dengan nomor telepon dan peta untuk kru support Playon.",
     en: "Hospitals, clinics, and emergency rooms along the ITB Ultra Marathon corridor from Jakarta to Bandung, with phones and a route map for the Playon support crew.",
   },
+  logoAlt: {
+    id: "Logo ITB 85, 40 tahun",
+    en: "ITB 85 40th anniversary logo",
+  },
   heading: {
     id: "Rumah sakit di jalan",
     en: "Hospitals on the road",

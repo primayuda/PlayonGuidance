@@ -283,6 +283,9 @@ function applyCopy() {
   document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
     el.setAttribute("aria-label", t(el.dataset.i18nAria));
   });
+  document.querySelectorAll("[data-i18n-alt]").forEach((el) => {
+    el.alt = t(el.dataset.i18nAlt);
+  });
   document.querySelectorAll("[data-lang]").forEach((button) => {
     button.setAttribute("aria-pressed", button.dataset.lang === lang ? "true" : "false");
   });
