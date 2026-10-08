@@ -273,6 +273,22 @@ input:focus-visible {
   min-height: 0;
 }
 
+.site-footer {
+  flex: none;
+  padding: 0.75rem 0.9rem;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.site-footer a {
+  color: var(--ink);
+  font-weight: 600;
+  text-underline-offset: 0.15em;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -906,6 +922,14 @@ body.map-full #map {
     overflow: auto;
     overscroll-behavior: contain;
     padding: 0.2rem 0.75rem 1.2rem;
+  }
+  .site-footer {
+    padding: 0.65rem 0.75rem 0.75rem;
+  }
+  .site-footer a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
   }
   .list-notes {
     margin-top: 0.35rem;

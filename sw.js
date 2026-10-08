@@ -1,6 +1,6 @@
 /* Offline shell for the race weekend. Tiles are stored only after a crew
    member has already viewed that part of the Jakarta–Bandung corridor. */
-const SHELL_CACHE = "playon-shell-v21";
+const SHELL_CACHE = "playon-shell-v23";
 const LIST_CACHE = "playon-list";
 const TILE_CACHE = "playon-tiles";
 const TILE_LIMIT = 700;
@@ -8,10 +8,10 @@ const TILE_LIMIT = 700;
 const SHELL = [
   "./",
   "index.html",
-  "css/styles.css?v=13",
+  "css/styles.css?v=14",
   "js/app.js?v=17",
   "js/data.js?v=17",
-  "js/i18n.js?v=3",
+  "js/i18n.js?v=4",
   "js/stations.js",
   "vendor/leaflet/leaflet.css",
   "vendor/leaflet/leaflet.js",

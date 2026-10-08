@@ -295,4 +295,8 @@ const I18N = {
     id: "Tampilkan water station",
     en: "Show water stations",
   },
+  creator: {
+    id: "Dibuat oleh",
+    en: "Created by",
+  },
 };

@@ -36,3 +36,5 @@ On a phone, add the page to the home screen. After one visit online, a reload wi
 - Two diamonds mark stretches with no general hospital, at Puncak Pass and the Cipatat cliffs. They stay on the map and are not rows in the list.
 
 The orange line is the ITB Ultra Marathon 2026 route from the [race map](https://www.google.com/maps/d/viewer?mid=18xsq7cKCM6lcQOvMwXg0qjceXzdH4_o), about 178 km. Phones and hours come from the Playon crew notes.
+
+Created by [Prima](https://primayuda.dev/).
