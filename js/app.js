@@ -530,32 +530,77 @@ function nudgePopupIntoView(popupEl, here) {
 }
 
 function mapPadding() {
-  if (phone.matches) {
-    const stops = sheetStops();
-    const covered = sheetState === "half" ? Math.max(0, stops.half - stops.peek) : 0;
-    const note = document.getElementById("map-note");
-    const noteUp = note && !note.hidden ? note.offsetHeight + 8 : 0;
+  if (!phone.matches) {
+    const dock = document.querySelector(".map-dock");
+    const bottom = Math.max(52, (dock ? dock.offsetHeight : 0) + 16);
     return {
-      paddingTopLeft: [16, 64],
-      paddingBottomRight: [16, 80 + covered + noteUp],
+      paddingTopLeft: [16, 16],
+      paddingBottomRight: [16, bottom],
     };
   }
-  const dock = document.querySelector(".map-dock");
-  const bottom = Math.max(52, (dock ? dock.offsetHeight : 0) + 16);
+  const size = map.getSize();
+  const mapRect = map.getContainer().getBoundingClientRect();
+  const sheetTop = sheet.getBoundingClientRect().top;
+  const covered = Math.max(0, Math.round(mapRect.bottom - sheetTop));
+  let extra = covered < 72 ? 72 : 12;
+  const note = document.getElementById("map-note");
+  if (note && !note.hidden) {
+    const noteRect = note.getBoundingClientRect();
+    if (noteRect.height > 1 && noteRect.top < sheetTop - 4) extra += Math.round(noteRect.height) + 8;
+  }
+  let bottom = covered + extra;
+  const top = 48;
+  if (size.y > 0 && top + bottom > size.y - 120) bottom = Math.max(0, size.y - top - 120);
   return {
-    paddingTopLeft: [16, 16],
-    paddingBottomRight: [16, bottom],
+    paddingTopLeft: [12, top],
+    paddingBottomRight: [12, bottom],
   };
 }
 
-function fitTo(places) {
-  const points = places.map((place) => [place.lat, place.lng]);
-  const padding = mapPadding();
-  if (!points.length) {
-    map.fitBounds(corridor.getBounds(), padding);
-    return;
+function routeIndex(place) {
+  const line = corridor.getLatLngs();
+  const here = L.latLng(place.lat, place.lng);
+  let best = 0;
+  let bestDistance = Infinity;
+  for (let i = 0; i < line.length; i += 1) {
+    const distance = here.distanceTo(line[i]);
+    if (distance < bestDistance) {
+      bestDistance = distance;
+      best = i;
+    }
   }
-  map.fitBounds(L.latLngBounds(points).pad(0.2), { ...padding, maxZoom: 13 });
+  return best;
+}
+
+/* Frame the orange line for this section, plus any pin that sits off the line. */
+function frameBounds(places) {
+  const whole = state.segment === "all" && !state.major && !state.overnight && !state.road && !state.detour && !state.q;
+  if (whole || !places.length) return corridor.getBounds();
+  const line = corridor.getLatLngs();
+  let start = routeIndex(places[0]);
+  let end = routeIndex(places[places.length - 1]);
+  if (end < start) {
+    const swap = start;
+    start = end;
+    end = swap;
+  }
+  start = Math.max(0, start - 3);
+  end = Math.min(line.length - 1, end + 3);
+  const bounds = L.latLngBounds(line.slice(start, end + 1));
+  places.forEach((place) => bounds.extend([place.lat, place.lng]));
+  return bounds;
+}
+
+function fitTo(places) {
+  if (phone.matches) {
+    const visible = sheet.getBoundingClientRect().top - map.getContainer().getBoundingClientRect().top;
+    if (visible < 240) setSheet("peek");
+  }
+  const bounds = frameBounds(places);
+  const padding = mapPadding();
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) map.fitBounds(bounds, padding);
+  else map.flyToBounds(bounds, { ...padding, duration: 0.45 });
 }
 
 function paintSegments() {
@@ -662,6 +707,7 @@ document.getElementById("segments").addEventListener("click", (event) => {
   document.querySelectorAll(".seg").forEach((item) => {
     item.setAttribute("aria-pressed", item === button ? "true" : "false");
   });
+  map.closePopup();
   render();
   fitTo(GUIDE.places.filter(visible));
 });
@@ -741,11 +787,12 @@ function showWholeRoute() {
   map.closePopup();
   setLegend(false);
   setSheet("peek");
-  const bounds = corridor.getBounds();
-  const options = mapPadding();
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce) map.fitBounds(bounds, options);
-  else map.flyToBounds(bounds, { ...options, duration: 0.6 });
+  state.segment = "all";
+  document.querySelectorAll(".seg").forEach((item) => {
+    item.setAttribute("aria-pressed", item.dataset.segment === "all" ? "true" : "false");
+  });
+  render();
+  fitTo(GUIDE.places.filter(visible));
 }
 
 let drag = null;
