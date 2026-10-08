@@ -6,11 +6,15 @@ const state = {
   road: false,
   detour: false,
   selected: null,
+  origin: null,
 };
 
 let lang = "id";
 let notice = null;
 const endpoints = [];
+const phone = window.matchMedia("(max-width: 860px)");
+let sheetState = "peek";
+let sheetOffset = 0;
 
 const map = L.map("map", { scrollWheelZoom: true });
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -235,6 +239,16 @@ function popupHtml(place) {
   </div>`;
 }
 
+/* On a phone the zoom buttons and Keterangan sit at the top of the map,
+   and Terdekat sits at the bottom. */
+function popupOptions() {
+  if (!phone.matches) return {};
+  return {
+    autoPanPaddingTopLeft: L.point(12, 112),
+    autoPanPaddingBottomRight: L.point(12, 80),
+  };
+}
+
 function repositionPopup(popup) {
   const container = popup.getElement();
   if (!container || !popup._map) return;
@@ -280,7 +294,7 @@ function syncMarkers(places) {
         zIndexOffset: place.major_er ? 300 : place.kind === "gap" ? 200 : 0,
       }).addTo(map);
       marker.on("click", () => select(place.id, false));
-      marker.bindPopup(popupHtml(place));
+      marker.bindPopup(popupHtml(place), popupOptions());
       markers.set(place.id, marker);
       return;
     }
@@ -294,6 +308,9 @@ function renderList(places) {
   const list = document.getElementById("list");
   const count = document.getElementById("count");
   count.textContent = places.length === 1 ? t("countOne") : t("countMany").replace("{n}", String(places.length));
+  document.getElementById("sheet-label").textContent = places.length === 1
+    ? t("sheetOne")
+    : t("sheetMany").replace("{n}", String(places.length));
 
   if (!places.length) {
     list.replaceChildren();
@@ -310,7 +327,7 @@ function renderList(places) {
       : "";
     const selected = place.id === state.selected ? " selected" : "";
     return `<article class="card${place.kind === "gap" ? " gap" : ""}${selected}" data-id="${escapeHtml(place.id)}">
-      <div class="card-top"><h2>${escapeHtml(text(place.name))}</h2></div>
+      <div class="card-top"><h2>${escapeHtml(text(place.name))}</h2>${distanceLabel(place)}</div>
       <div class="tags tags-full">${tags(place)}</div>
       ${hoursBrief(place)}
       ${phone}
@@ -335,19 +352,49 @@ function renderList(places) {
         return;
       }
       if (event.target.closest("a")) return;
+      if (phone.matches) {
+        if (document.activeElement && document.activeElement.id === "search") document.activeElement.blur();
+        setSheet("peek");
+      }
       select(card.dataset.id, true);
     });
   });
 }
 
-function render() {
+function distanceLabel(place) {
+  if (!state.origin) return "";
+  const meters = state.origin.distanceTo([place.lat, place.lng]);
+  return `<span class="away">${escapeHtml(formatDistance(meters))}</span>`;
+}
+
+function listedPlaces() {
   const places = GUIDE.places.filter(visible);
+  if (!state.origin) return places;
+  return places
+    .map((place, index) => ({ place, index }))
+    .sort((a, b) => {
+      const delta = state.origin.distanceTo([a.place.lat, a.place.lng]) - state.origin.distanceTo([b.place.lat, b.place.lng]);
+      return delta || a.index - b.index;
+    })
+    .map((item) => item.place);
+}
+
+/* On a phone the list is a sheet that is usually lowered, and scrolling it
+   would also scroll the page under the map. */
+function revealCard(card) {
+  if (!card || phone.matches) return;
+  card.scrollIntoView({ block: "nearest" });
+}
+
+function render() {
+  const places = listedPlaces();
   const segment = GUIDE.segments.find((item) => item.id === state.segment);
-  document.getElementById("blurb").textContent = segment ? text(segment.blurb) : t("blurbAll");
+  document.getElementById("blurb").textContent = state.origin
+    ? t("blurbNearest")
+    : (segment ? text(segment.blurb) : t("blurbAll"));
   renderList(places);
   syncMarkers(places);
-  const selectedCard = document.querySelector(".card.selected");
-  if (selectedCard) selectedCard.scrollIntoView({ block: "nearest" });
+  revealCard(document.querySelector(".card.selected"));
 }
 
 function select(id, fly, afterOpen) {
@@ -358,7 +405,7 @@ function select(id, fly, afterOpen) {
     card.classList.toggle("selected", card.dataset.id === id);
   });
   const card = document.querySelector(`.card[data-id="${CSS.escape(id)}"]`);
-  if (card) card.scrollIntoView({ block: "nearest" });
+  revealCard(card);
   const marker = markers.get(id);
   if (!marker) return;
   const zoom = place.exact && place.kind !== "gap" ? 16 : 14;
@@ -440,27 +487,23 @@ function keepPopupClearOf(marker, here) {
   marker.once("popupclose", () => resetPopupShift(popup));
 }
 
+const MAP_OVERLAYS = [".leaflet-control-zoom", ".map-tools", "#nearest", "#legend-toggle", ".legend", "#map-note"];
+
 function safeMapRect() {
   const mapBox = map.getContainer().getBoundingClientRect();
-  const rectOf = (selector) => {
-    const node = document.querySelector(selector);
-    if (!node) return null;
-    const rect = node.getBoundingClientRect();
-    return rect.width > 1 && rect.height > 1 ? rect : null;
-  };
-  let left = mapBox.left + 8;
-  let right = mapBox.right - 8;
+  const middle = (mapBox.top + mapBox.bottom) / 2;
+  const left = mapBox.left + 8;
+  const right = mapBox.right - 8;
   let top = mapBox.top + 8;
   let bottom = mapBox.bottom - 8;
-  const zoom = rectOf(".leaflet-control-zoom");
-  const tools = rectOf(".map-tools");
-  const legend = rectOf(".legend");
-  const note = document.getElementById("map-note");
-  const noteBox = note && !note.hidden ? note.getBoundingClientRect() : null;
-  if (zoom) left = Math.max(left, zoom.right + 6);
-  if (tools) top = Math.max(top, tools.bottom + 6);
-  if (legend) bottom = Math.min(bottom, legend.top - 6);
-  if (noteBox && noteBox.height > 1) bottom = Math.min(bottom, noteBox.top - 6);
+  MAP_OVERLAYS.forEach((selector) => {
+    const node = document.querySelector(selector);
+    if (!node || node.hidden) return;
+    const rect = node.getBoundingClientRect();
+    if (rect.width <= 1 || rect.height <= 1) return;
+    if ((rect.top + rect.bottom) / 2 < middle) top = Math.max(top, rect.bottom + 6);
+    else bottom = Math.min(bottom, rect.top - 6);
+  });
   return { left, right, top, bottom };
 }
 
@@ -487,10 +530,19 @@ function nudgePopupIntoView(popupEl, here) {
 }
 
 function mapPadding() {
-  const narrow = window.innerWidth < 861;
+  if (phone.matches) {
+    const stops = sheetStops();
+    const covered = sheetState === "half" ? Math.max(0, stops.half - stops.peek) : 0;
+    return {
+      paddingTopLeft: [16, 64],
+      paddingBottomRight: [16, 80 + covered],
+    };
+  }
+  const dock = document.querySelector(".map-dock");
+  const bottom = Math.max(52, (dock ? dock.offsetHeight : 0) + 16);
   return {
     paddingTopLeft: [16, 16],
-    paddingBottomRight: narrow ? [16, 92] : [16, 52],
+    paddingBottomRight: [16, bottom],
   };
 }
 
@@ -635,7 +687,121 @@ document.getElementById("expand").addEventListener("click", () => {
   setTimeout(() => map.invalidateSize(), 60);
 });
 
+const shell = document.querySelector(".shell");
+const sheet = document.getElementById("panel");
+const handle = document.getElementById("sheet-handle");
+const searchInput = document.getElementById("search");
+const mapWrap = document.getElementById("map-wrap");
+const legendToggle = document.getElementById("legend-toggle");
+const SHEET_ORDER = ["peek", "half", "full"];
+
+function sheetStops() {
+  const bottomInset = parseFloat(getComputedStyle(sheet).paddingBottom) || 0;
+  const peek = Math.round(searchInput.offsetTop + searchInput.offsetHeight + 12 + bottomInset);
+  const full = sheet.offsetHeight;
+  const half = Math.max(peek + 80, Math.min(full, Math.round(shell.clientHeight * 0.55)));
+  return { peek, half, full };
+}
+
+function placeSheet(offset) {
+  sheetOffset = offset;
+  sheet.style.transform = `translateY(${offset}px)`;
+}
+
+function setSheet(state) {
+  if (!phone.matches) return;
+  sheetState = state;
+  placeSheet(sheet.offsetHeight - sheetStops()[state]);
+  sheet.dataset.state = state;
+  handle.setAttribute("aria-expanded", state === "peek" ? "false" : "true");
+}
+
+function layoutSheet() {
+  if (!phone.matches) {
+    sheet.style.transform = "";
+    shell.style.removeProperty("--peek");
+    map.invalidateSize();
+    return;
+  }
+  shell.style.setProperty("--peek", `${sheetStops().peek}px`);
+  setSheet(sheetState);
+  map.invalidateSize();
+}
+
+function setLegend(open) {
+  mapWrap.classList.toggle("legend-open", open);
+  legendToggle.setAttribute("aria-expanded", open ? "true" : "false");
+}
+
+let drag = null;
+let dragged = false;
+let dragEndedAt = 0;
+
+handle.addEventListener("pointerdown", (event) => {
+  if (!phone.matches) return;
+  dragged = false;
+  drag = { y: event.clientY, offset: sheetOffset, lastY: event.clientY, lastT: event.timeStamp, v: 0 };
+  handle.setPointerCapture(event.pointerId);
+});
+
+handle.addEventListener("pointermove", (event) => {
+  if (!drag) return;
+  const dy = event.clientY - drag.y;
+  if (!dragged && Math.abs(dy) < 6) return;
+  if (!dragged) {
+    dragged = true;
+    sheet.classList.add("dragging");
+  }
+  const dt = event.timeStamp - drag.lastT;
+  if (dt > 0) drag.v = (event.clientY - drag.lastY) / dt;
+  drag.lastY = event.clientY;
+  drag.lastT = event.timeStamp;
+  const lowest = sheet.offsetHeight - sheetStops().peek;
+  placeSheet(Math.min(lowest, Math.max(0, drag.offset + dy)));
+});
+
+function endDrag() {
+  if (!drag) return;
+  const velocity = drag.v;
+  drag = null;
+  if (!dragged) return;
+  dragged = false;
+  dragEndedAt = performance.now();
+  sheet.classList.remove("dragging");
+  const stops = sheetStops();
+  const shown = sheet.offsetHeight - sheetOffset;
+  let next = SHEET_ORDER.reduce((best, state) =>
+    Math.abs(stops[state] - shown) < Math.abs(stops[best] - shown) ? state : best, "peek");
+  if (velocity < -0.45) next = SHEET_ORDER.find((state) => stops[state] > shown + 4) || "full";
+  if (velocity > 0.45) next = [...SHEET_ORDER].reverse().find((state) => stops[state] < shown - 4) || "peek";
+  setSheet(next);
+}
+
+handle.addEventListener("pointerup", endDrag);
+handle.addEventListener("pointercancel", endDrag);
+handle.addEventListener("click", () => {
+  if (performance.now() - dragEndedAt < 400) return;
+  setSheet(sheetState === "peek" ? "half" : "peek");
+});
+
+searchInput.addEventListener("focus", () => setSheet("full"));
+
+legendToggle.addEventListener("click", () => {
+  setLegend(!mapWrap.classList.contains("legend-open"));
+});
+
+map.on("click dragstart", () => {
+  if (!phone.matches) return;
+  setLegend(false);
+  if (sheetState !== "peek") setSheet("peek");
+});
+
+window.addEventListener("resize", layoutSheet);
+phone.addEventListener("change", layoutSheet);
+
 document.getElementById("nearest").addEventListener("click", () => {
+  setLegend(false);
+  setSheet("peek");
   if (!navigator.geolocation) {
     showNotice({ key: "noGeo" });
     return;
@@ -643,6 +809,7 @@ document.getElementById("nearest").addEventListener("click", () => {
   showNotice({ key: "finding" });
   navigator.geolocation.getCurrentPosition((position) => {
     const here = L.latLng(position.coords.latitude, position.coords.longitude);
+    state.origin = here;
     if (hereMarker) map.removeLayer(hereMarker);
     hereMarker = L.marker(here, { icon: hereIcon(), zIndexOffset: 800 }).addTo(map);
     hereMarker.bindPopup("");
@@ -658,6 +825,11 @@ document.getElementById("nearest").addEventListener("click", () => {
       name: text(nearest.place.name),
       meters: nearest.meters,
     });
+    state.segment = "all";
+    document.querySelectorAll(".seg").forEach((item) => {
+      item.setAttribute("aria-pressed", item.dataset.segment === "all" ? "true" : "false");
+    });
+    render();
     const dodge = (marker) => keepPopupClearOf(marker, here);
     const closeEnough = nearest.meters < 250;
     if (closeEnough) {
@@ -680,5 +852,6 @@ document.querySelectorAll("[data-lang]").forEach((button) => {
 });
 
 setLang(initialLang());
+layoutSheet();
 map.on("popupopen", (event) => bindPopupMore(event.popup));
 map.fitBounds(corridor.getBounds(), mapPadding());

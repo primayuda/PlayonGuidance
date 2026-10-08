@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1c1915">
   <title>Playon Guidance — rumah sakit di rute ITB UM 2026</title>
   <meta name="description" content="Rumah sakit, klinik, dan IGD di sepanjang rute ITB Ultra Marathon dari Jakarta ke Bandung, dengan nomor telepon dan peta untuk kru support Playon.">
@@ -18,7 +18,10 @@
       <img class="logo" src="favicon.png" width="52" height="52" alt="Logo ITB 85, 40 tahun" data-i18n-alt="logoAlt">
       <div class="brand-text">
         <p class="eyebrow">Playon 85 · ITB Ultra Marathon 2026</p>
-        <h1 data-i18n="heading">Rumah sakit di jalan</h1>
+        <h1>
+          <span class="title-wide" data-i18n="heading">Rumah sakit di jalan</span>
+          <span class="title-phone" data-i18n="headingPhone">Rumah Sakit sepanjang rute</span>
+        </h1>
         <p class="sub" data-i18n="sub">16–18 Oktober · Jakarta ke Bandung · peta kru support</p>
       </div>
     </div>
@@ -32,7 +35,11 @@
   </header>
 
   <div class="shell">
-    <aside class="panel">
+    <aside class="panel" id="panel">
+      <button type="button" class="sheet-handle" id="sheet-handle" aria-expanded="false" aria-controls="list">
+        <span class="grabber" aria-hidden="true"></span>
+        <span class="sheet-label" id="sheet-label"></span>
+      </button>
       <div class="tools">
         <label class="search">
           <span class="sr" data-i18n="searchLabel">Cari rumah sakit</span>
@@ -58,20 +65,26 @@
     <div class="map-wrap" id="map-wrap">
       <div id="map" role="region" data-i18n-aria="mapLabel" aria-label="Peta rumah sakit di sepanjang rute"></div>
       <div class="map-tools">
-        <button type="button" id="nearest" data-i18n="nearest">Terdekat</button>
+        <button type="button" id="nearest">
+          <svg class="locate" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span data-i18n="nearest">Terdekat</span>
+        </button>
         <button type="button" id="expand">Peta penuh</button>
+        <button type="button" id="legend-toggle" class="legend-toggle" aria-expanded="false" aria-controls="legend" data-i18n="legendToggle">Keterangan</button>
       </div>
-      <p class="map-note" id="map-note" hidden></p>
-      <ul class="legend">
-        <li><i class="swatch er"></i><span data-i18n="legendEr">IGD besar</span></li>
-        <li><i class="swatch hospital"></i><span data-i18n="legendHospital">Rumah sakit</span></li>
-        <li><i class="swatch rsia"></i><span data-i18n="legendRsia">Ibu dan anak</span></li>
-        <li><i class="swatch clinic"></i><span data-i18n="legendClinic">Klinik atau puskesmas</span></li>
-        <li><i class="swatch approx"></i><span data-i18n="legendApprox">Pin perkiraan</span></li>
-        <li><i class="swatch ws"></i><span data-i18n="legendWs">Water station</span></li>
-        <li><i class="swatch route"></i><span data-i18n="legendRoute">Rute lomba</span></li>
-        <li><i class="swatch you"></i><span data-i18n="legendYou">Lokasi Anda</span></li>
-      </ul>
+      <div class="map-dock">
+        <p class="map-note" id="map-note" hidden></p>
+        <ul class="legend" id="legend">
+          <li><i class="swatch er"></i><span data-i18n="legendEr">IGD besar</span></li>
+          <li><i class="swatch hospital"></i><span data-i18n="legendHospital">Rumah sakit</span></li>
+          <li><i class="swatch rsia"></i><span data-i18n="legendRsia">Ibu dan anak</span></li>
+          <li><i class="swatch clinic"></i><span data-i18n="legendClinic">Klinik atau puskesmas</span></li>
+          <li><i class="swatch approx"></i><span data-i18n="legendApprox">Pin perkiraan</span></li>
+          <li><i class="swatch ws"></i><span data-i18n="legendWs">Water station</span></li>
+          <li><i class="swatch route"></i><span data-i18n="legendRoute">Rute lomba</span></li>
+          <li><i class="swatch you"></i><span data-i18n="legendYou">Lokasi Anda</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 

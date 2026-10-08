@@ -15,6 +15,10 @@ const I18N = {
     id: "Rumah sakit di jalan",
     en: "Hospitals on the road",
   },
+  headingPhone: {
+    id: "Rumah Sakit sepanjang rute",
+    en: "Hospitals along the route",
+  },
   sub: {
     id: "16–18 Oktober · Jakarta ke Bandung · peta kru support",
     en: "16–18 October · Jakarta to Bandung · support-crew map",
@@ -66,6 +70,10 @@ const I18N = {
   blurbAll: {
     id: "Urutan di jalan dari Jakarta ke Bandung. Penanda merah adalah IGD yang lebih besar menurut catatan kru.",
     en: "In road order from Jakarta to Bandung. Red markers are the larger emergency rooms named in the crew notes.",
+  },
+  blurbNearest: {
+    id: "Diurutkan dari yang paling dekat dengan Anda.",
+    en: "Sorted from the one nearest to you.",
   },
   aboutSummary: {
     id: "Tentang pin ini",
@@ -158,6 +166,18 @@ const I18N = {
   countMany: {
     id: "{n} di peta",
     en: "{n} on the map",
+  },
+  sheetOne: {
+    id: "Daftar · 1 tempat",
+    en: "List · 1 place",
+  },
+  sheetMany: {
+    id: "Daftar · {n} tempat",
+    en: "List · {n} places",
+  },
+  legendToggle: {
+    id: "Keterangan",
+    en: "Legend",
   },
   empty: {
     id: "Tidak ada yang cocok. Hapus saringan, atau coba nama lain.",
