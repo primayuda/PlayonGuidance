@@ -534,7 +534,7 @@ function mapPadding() {
     const stops = sheetStops();
     const covered = sheetState === "half" ? Math.max(0, stops.half - stops.peek) : 0;
     const note = document.getElementById("map-note");
-    const noteUp = note && !note.hidden ? 56 : 0;
+    const noteUp = note && !note.hidden ? note.offsetHeight + 8 : 0;
     return {
       paddingTopLeft: [16, 64],
       paddingBottomRight: [16, 80 + covered + noteUp],
@@ -633,19 +633,21 @@ function formatDistance(meters) {
 
 function paintNotice() {
   const el = document.getElementById("map-note");
+  const text = document.getElementById("map-note-text");
+  const nearest = notice && notice.key === "nearestIs";
   if (!notice) {
     el.hidden = true;
-    el.textContent = "";
+    el.classList.remove("is-nearest");
+    text.textContent = "";
+    mapWrap.classList.remove("has-nearest");
     return;
   }
   el.hidden = false;
-  if (notice.key === "nearestIs") {
-    el.textContent = t("nearestIs")
-      .replace("{name}", notice.name)
-      .replace("{distance}", formatDistance(notice.meters));
-    return;
-  }
-  el.textContent = t(notice.key);
+  el.classList.toggle("is-nearest", nearest);
+  mapWrap.classList.toggle("has-nearest", nearest && phone.matches);
+  text.textContent = nearest
+    ? t("nearestIs").replace("{name}", notice.name).replace("{distance}", formatDistance(notice.meters))
+    : t(notice.key);
 }
 
 function showNotice(next) {
@@ -735,14 +737,9 @@ function setLegend(open) {
   legendToggle.setAttribute("aria-expanded", open ? "true" : "false");
 }
 
-function setZoomed(zoomed) {
-  mapWrap.classList.toggle("zoomed", zoomed && phone.matches);
-}
-
 function showWholeRoute() {
   map.closePopup();
   setLegend(false);
-  setZoomed(false);
   setSheet("peek");
   const bounds = corridor.getBounds();
   const options = mapPadding();
@@ -850,7 +847,6 @@ document.getElementById("nearest").addEventListener("click", () => {
       item.setAttribute("aria-pressed", item.dataset.segment === "all" ? "true" : "false");
     });
     render();
-    setZoomed(true);
     const dodge = (marker) => keepPopupClearOf(marker, here);
     const closeEnough = nearest.meters < 250;
     if (closeEnough) {

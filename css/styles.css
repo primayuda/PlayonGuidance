@@ -408,8 +408,9 @@ input:focus-visible {
 .locate { width: 1.1em; height: 1.1em; flex: none; }
 
 .map-tools .legend-toggle,
-#route-fit,
 .sheet-handle { display: none; }
+
+#route-fit { display: none; }
 
 button, a, .card {
   -webkit-tap-highlight-color: transparent;
@@ -439,6 +440,10 @@ button, a, .card {
   font-size: 0.88rem;
   pointer-events: auto;
 }
+
+.map-note-text { margin: 0; }
+
+.map-note[hidden] { display: none !important; }
 
 .legend {
   display: flex;
@@ -655,19 +660,27 @@ body.map-full #map {
     font-weight: 700;
     box-shadow: 0 6px 18px rgba(29, 78, 137, 0.35);
   }
-  .map-wrap.zoomed #route-fit {
-    display: inline-flex;
-    position: absolute;
-    z-index: 500;
-    right: 0.75rem;
-    bottom: 0.75rem;
-    min-height: 3rem;
-    padding: 0 1rem;
+  .map-note.is-nearest {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .map-note.is-nearest #route-fit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 2.75rem;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
     font-size: 1rem;
     font-weight: 700;
   }
-  .map-wrap.zoomed .leaflet-control-attribution {
-    margin-bottom: 7.6rem;
+  .map-wrap.has-nearest .leaflet-control-attribution {
+    margin-bottom: 10.5rem;
   }
   .map-tools .legend-toggle {
     display: inline-flex;

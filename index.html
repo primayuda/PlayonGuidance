@@ -10,7 +10,7 @@
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=6">
 </head>
 <body>
   <header class="top">
@@ -70,11 +70,13 @@
           <span data-i18n="nearest">Terdekat</span>
         </button>
         <button type="button" id="expand">Peta penuh</button>
-        <button type="button" id="route-fit" data-i18n="wholeRoute">Seluruh rute</button>
         <button type="button" id="legend-toggle" class="legend-toggle" aria-expanded="false" aria-controls="legend" data-i18n="legendToggle">Keterangan</button>
       </div>
       <div class="map-dock">
-        <p class="map-note" id="map-note" hidden></p>
+        <div class="map-note" id="map-note" hidden>
+          <p class="map-note-text" id="map-note-text"></p>
+          <button type="button" id="route-fit" data-i18n="wholeRoute">Seluruh rute</button>
+        </div>
         <ul class="legend" id="legend">
           <li><i class="swatch er"></i><span data-i18n="legendEr">IGD besar</span></li>
           <li><i class="swatch hospital"></i><span data-i18n="legendHospital">Rumah sakit</span></li>
@@ -93,6 +95,6 @@
   <script src="js/data.js"></script>
   <script src="js/stations.js"></script>
   <script src="js/i18n.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=6"></script>
 </body>
 </html>
