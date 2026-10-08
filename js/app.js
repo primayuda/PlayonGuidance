@@ -12,6 +12,10 @@ const state = {
 let lang = "id";
 let notice = null;
 let viewingWhole = true;
+let filtersOpen = false;
+let stationsOn = true;
+let stationsChosen = false;
+let night = false;
 const endpoints = [];
 const phone = window.matchMedia("(max-width: 860px)");
 let sheetState = "peek";
@@ -20,16 +24,52 @@ let cardStop = 0;
 let pinOpenedAt = 0;
 let sheetForPin = false;
 
+try {
+  night = localStorage.getItem("playon-night") === "1";
+} catch (err) {
+  /* Night mode still starts in daylight if storage is blocked. */
+}
+document.body.classList.toggle("night", night);
+
 const map = L.map("map", { scrollWheelZoom: true });
+const LIGHT_TILES = {
+  url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+  options: {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19,
+  },
+};
+/* Carto's public dark tiles now paint an API-key watermark over the map.
+   Esri's dark canvas is the unlabeled-key equivalent, with a transparent
+   label layer so town names stay readable. */
+const DARK_BASE = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}";
+const DARK_LABELS = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}";
 /* OpenStreetMap refuses tiles to a page with no web address, so a copy opened
    from disk would only show "Access blocked" squares. */
 const openedFromDisk = location.protocol === "file:";
-if (!openedFromDisk) {
-  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+let baseLayers = [];
+
+function setBaseMap(useNight) {
+  if (openedFromDisk) return;
+  baseLayers.forEach((layer) => map.removeLayer(layer));
+  baseLayers = [];
+  if (!useNight) {
+    const light = L.tileLayer(LIGHT_TILES.url, LIGHT_TILES.options).addTo(map);
+    light.bringToBack();
+    baseLayers.push(light);
+    return;
+  }
+  const base = L.tileLayer(DARK_BASE, {
+    attribution: 'Tiles &copy; <a href="https://www.esri.com/">Esri</a>',
     maxZoom: 19,
+    maxNativeZoom: 16,
   }).addTo(map);
+  base.bringToBack();
+  const labels = L.tileLayer(DARK_LABELS, { maxZoom: 19, maxNativeZoom: 16 }).addTo(map);
+  baseLayers.push(base, labels);
 }
+
+setBaseMap(night);
 
 L.polyline(GUIDE.route, { color: "#fffaf3", weight: 9, opacity: 0.95, lineJoin: "round" }).addTo(map);
 const corridor = L.polyline(GUIDE.route, { color: "#c65314", weight: 4, opacity: 0.95, lineJoin: "round" }).addTo(map);
@@ -193,29 +233,41 @@ function paintStations() {
   const marker = L.marker([station.lat, station.lng], {
     icon: stationIcon(station),
     zIndexOffset: 450,
-  }).addTo(map);
+  });
   marker.bindPopup("");
   marker.bindTooltip("", { direction: "top", offset: [0, -8] });
   stationMarkers.push({ marker, station });
 });
 
+function applyStations() {
+  stationMarkers.forEach(({ marker }) => {
+    const onMap = map.hasLayer(marker);
+    if (stationsOn && !onMap) marker.addTo(map);
+    if (!stationsOn && onMap) {
+      marker.closePopup();
+      map.removeLayer(marker);
+    }
+  });
+}
+
+function matchesQuery(place) {
+  if (!state.q) return true;
+  const hay = [both(place.name), both(place.address), place.phone, both(place.note), both(place.hours), place.km]
+    .join(" ")
+    .toLowerCase();
+  return hay.includes(state.q);
+}
+
+/* Gap warnings stay on the map for the section in view. The four place
+   filters do not hide them. */
 function visible(place) {
   if (state.segment !== "all" && place.segment !== state.segment) return false;
-  if (place.kind === "gap") {
-    if (state.major || state.overnight || state.detour) return false;
-  } else {
-    if (state.major && !place.major_er) return false;
-    if (state.overnight && !place.open24) return false;
-    if (state.road && place.side !== "road") return false;
-    if (state.detour && place.side !== "detour") return false;
-  }
-  if (state.road && place.kind !== "gap" && place.side !== "road") return false;
-  if (state.q) {
-    const hay = [both(place.name), both(place.address), place.phone, both(place.note), both(place.hours), place.km]
-      .join(" ")
-      .toLowerCase();
-    if (!hay.includes(state.q)) return false;
-  }
+  if (!matchesQuery(place)) return false;
+  if (place.kind === "gap") return true;
+  if (state.major && !place.major_er) return false;
+  if (state.overnight && !place.open24) return false;
+  if (state.road && place.side !== "road") return false;
+  if (state.detour && place.side !== "detour") return false;
   return true;
 }
 
@@ -253,19 +305,35 @@ function moreButton(className) {
   return `<button type="button" class="more ${className}" aria-expanded="false">${escapeHtml(t("showMore"))}</button>`;
 }
 
+function telHref(place) {
+  const raw = String(place.tel || "").trim();
+  if (!/^\+?[0-9]{3,15}$/.test(raw)) return "";
+  return `tel:${raw}`;
+}
+
+function phoneControl(place) {
+  const href = telHref(place);
+  const label = String(place.phone || "").trim();
+  if (href) return `<a class="phone" href="${href}">${escapeHtml(label || href.slice(4))}</a>`;
+  if (label) return `<span class="phone missing">${escapeHtml(label)}</span>`;
+  return `<span class="phone missing">${escapeHtml(t("noNumber"))}</span>`;
+}
+
 function directionsLink(place) {
-  const directions = `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
-  return `<a href="${directions}" target="_blank" rel="noopener noreferrer">${escapeHtml(t("directions"))}</a>`;
+  const lat = Number(place.lat);
+  const lng = Number(place.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return "";
+  const destination = `${lat},${lng}`;
+  const directions = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=driving&dir_action=navigate`;
+  const blank = phone.matches ? "" : ` target="_blank" rel="noopener noreferrer"`;
+  return `<a class="directions" href="${directions}"${blank}>${escapeHtml(t("directions"))}</a>`;
 }
 
 function popupHtml(place) {
-  const phone = place.tel
-    ? `<a class="phone" href="tel:${escapeHtml(place.tel)}">${escapeHtml(place.phone)}</a>`
-    : "";
   return `<div class="popup-card">
     <strong>${escapeHtml(text(place.name))}</strong>
     ${hoursBrief(place)}
-    ${phone}
+    ${phoneControl(place)}
     <div class="actions">${directionsLink(place)}${moreButton("popup-more")}</div>
       <div class="card-extra">
       <div class="tags tags-detail">${tags(place, { skipHours: place.open24 })}</div>
@@ -281,7 +349,7 @@ function popupOptions() {
   if (!phone.matches) return {};
   return {
     autoPanPaddingTopLeft: L.point(12, 112),
-    autoPanPaddingBottomRight: L.point(12, 80),
+    autoPanPaddingBottomRight: L.point(12, 96),
   };
 }
 
@@ -327,7 +395,7 @@ function syncMarkers(places) {
     if (!marker) {
       marker = L.marker([place.lat, place.lng], {
         icon: iconFor(place),
-        zIndexOffset: place.major_er ? 300 : place.kind === "gap" ? 200 : 0,
+        zIndexOffset: place.kind === "gap" ? 640 : place.major_er ? 300 : 0,
       }).addTo(map);
       marker.on("click", () => openFromPin(place.id));
       marker.bindPopup(popupHtml(place), popupOptions());
@@ -370,15 +438,12 @@ function renderList(places) {
   }
 
   list.innerHTML = places.map((place) => {
-    const phoneLink = place.tel
-      ? `<a class="phone" href="tel:${escapeHtml(place.tel)}">${escapeHtml(place.phone)}</a>`
-      : "";
     const selected = place.id === state.selected ? " selected" : "";
     return `<article class="card${place.kind === "gap" ? " gap" : ""}${selected}" data-id="${escapeHtml(place.id)}">
       <div class="card-top"><h2>${escapeHtml(text(place.name))}</h2>${distanceLabel(place)}</div>
       <div class="tags tags-full">${tags(place)}</div>
       <div class="card-brief">${hoursChip(place)}${moreButton("")}</div>
-      ${phoneLink}
+      ${phoneControl(place)}
       <div class="actions">${directionsLink(place)}</div>
       <div class="card-extra">
         <div class="tags tags-detail">${tags(place, { skipHours: true })}</div>
@@ -425,8 +490,13 @@ function distanceLabel(place) {
   return `<span class="away">${escapeHtml(formatDistance(meters))}</span>`;
 }
 
-function listedPlaces() {
-  const places = GUIDE.places.filter(visible);
+/* Gap warnings stay on the map. They are not places to call, so they
+   do not take a row in the list. */
+function shownInList(place) {
+  return place.kind !== "gap";
+}
+
+function orderPlaces(places) {
   if (!state.origin) return places;
   return places
     .map((place, index) => ({ place, index }))
@@ -435,6 +505,14 @@ function listedPlaces() {
       return delta || a.index - b.index;
     })
     .map((item) => item.place);
+}
+
+function listedPlaces() {
+  return orderPlaces(GUIDE.places.filter((place) => visible(place) && shownInList(place)));
+}
+
+function mappedPlaces() {
+  return orderPlaces(GUIDE.places.filter(visible));
 }
 
 /* On a phone the list is a sheet that is usually lowered, and scrolling it
@@ -451,7 +529,7 @@ function render() {
     ? t("blurbNearest")
     : (segment ? text(segment.blurb) : t("blurbAll"));
   renderList(places);
-  syncMarkers(places);
+  syncMarkers(mappedPlaces());
   revealCard(document.querySelector(".card.selected"));
 }
 
@@ -545,7 +623,7 @@ function keepPopupClearOf(marker, here) {
   marker.once("popupclose", () => resetPopupShift(popup));
 }
 
-const MAP_OVERLAYS = [".leaflet-control-zoom", ".map-tools", "#nearest", "#route-fit", "#legend-toggle", ".legend", "#map-note"];
+const MAP_OVERLAYS = [".leaflet-control-zoom", ".corner-tools", "#nearest", "#ambulance-float", "#route-fit", "#legend-toggle", "#stations-toggle", ".legend", "#map-note"];
 
 function safeMapRect() {
   const mapBox = map.getContainer().getBoundingClientRect();
@@ -685,9 +763,36 @@ function fitTo(places, animate) {
   if (phone.matches && state.segment === "cimahi") zoom = Math.max(map.getMinZoom(), zoom - 1);
   const center = frameCenter(bounds, zoom, padding);
   const reduce = animate === false || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce) map.setView(center, zoom);
-  else map.flyTo(center, zoom, { duration: 0.45 });
-  syncRouteReturn();
+  const finishFrame = () => {
+    holdGapsInView();
+    syncRouteReturn();
+  };
+  if (reduce) {
+    map.setView(center, zoom);
+    finishFrame();
+  } else {
+    map.once("moveend", finishFrame);
+    map.flyTo(center, zoom, { duration: 0.45 });
+  }
+}
+
+/* A peeked sheet hides whatever sits on the bottom edge of the map.
+   Pull the frame back until each gap diamond in this section is on screen. */
+function holdGapsInView() {
+  if (!phone.matches || sheetState !== "peek") return;
+  const size = map.getSize();
+  if (!size || size.y < 120) return;
+  const hidden = GUIDE.places.filter((place) => {
+    if (place.kind !== "gap" || !visible(place)) return false;
+    const point = map.latLngToContainerPoint([place.lat, place.lng]);
+    return point.y > size.y - 24 || point.y < 28 || point.x < 12 || point.x > size.x - 12;
+  });
+  if (!hidden.length) return;
+  const bounds = map.getBounds();
+  hidden.forEach((place) => bounds.extend([place.lat, place.lng]));
+  const padding = mapPadding();
+  const zoom = Math.min(map.getZoom(), fittedZoom(bounds, padding));
+  map.setView(frameCenter(bounds, zoom, padding), zoom);
 }
 
 function paintSegments() {
@@ -723,6 +828,9 @@ function applyCopy() {
   });
   document.getElementById("expand").textContent = document.body.classList.contains("map-full") ? t("showList") : t("fullMap");
   paintSegments();
+  paintFilterToggle();
+  paintNight();
+  paintStationsToggle();
   endpoints.forEach(paintEndpoint);
   paintStations();
   paintHere();
@@ -814,18 +922,35 @@ document.getElementById("segments").addEventListener("click", (event) => {
   fitTo(GUIDE.places.filter(visible));
 });
 
-document.querySelectorAll(".chip").forEach((chip) => {
+function paintFilterToggle() {
+  const button = document.getElementById("filter-toggle");
+  const filters = document.getElementById("filters");
+  if (!button || !filters) return;
+  const n = ["major", "overnight", "road", "detour"].filter((key) => state[key]).length;
+  button.textContent = n ? t("filterOn").replace("{n}", String(n)) : t("filterToggle");
+  button.setAttribute("aria-pressed", n ? "true" : "false");
+  button.setAttribute("aria-expanded", filtersOpen ? "true" : "false");
+  filters.classList.toggle("is-open", filtersOpen);
+}
+
+document.querySelectorAll(".chip[data-filter]").forEach((chip) => {
   chip.addEventListener("click", () => {
     const key = chip.dataset.filter;
     if (key === "road" && !state.road) state.detour = false;
     if (key === "detour" && !state.detour) state.road = false;
     state[key] = !state[key];
-    document.querySelectorAll(".chip").forEach((item) => {
+    document.querySelectorAll(".chip[data-filter]").forEach((item) => {
       item.setAttribute("aria-pressed", state[item.dataset.filter] ? "true" : "false");
     });
+    paintFilterToggle();
     render();
     fitTo(GUIDE.places.filter(visible));
   });
+});
+
+document.getElementById("filter-toggle").addEventListener("click", () => {
+  filtersOpen = !filtersOpen;
+  paintFilterToggle();
 });
 
 document.getElementById("search").addEventListener("input", (event) => {
@@ -857,7 +982,8 @@ function sheetStops() {
 
 /* A pin tap on a phone raises the list far enough to show that place. */
 function openFromPin(id) {
-  if (!phone.matches) {
+  const place = GUIDE.places.find((item) => item.id === id);
+  if (!phone.matches || (place && !shownInList(place))) {
     select(id, false);
     return;
   }
@@ -877,7 +1003,6 @@ function openFromPin(id) {
   const stops = sheetStops();
   cardStop = Math.min(stops.full, Math.max(stops.half, needed));
   setSheet("card");
-  const place = GUIDE.places.find((item) => item.id === id);
   if (place) revealPinAboveSheet(place);
 }
 
@@ -897,16 +1022,44 @@ function placeSheet(offset) {
   sheet.style.transform = `translateY(${offset}px)`;
 }
 
-function setSheet(state) {
+function setSheet(next) {
   if (!phone.matches) return;
-  sheetState = state;
-  placeSheet(sheet.offsetHeight - sheetStops()[state]);
-  sheet.dataset.state = state;
-  handle.setAttribute("aria-expanded", state === "peek" ? "false" : "true");
+  if (sheetState === "peek" && next !== "peek") dismissSheetHint();
+  sheetState = next;
+  placeSheet(sheet.offsetHeight - sheetStops()[next]);
+  sheet.dataset.state = next;
+  handle.setAttribute("aria-expanded", next === "peek" ? "false" : "true");
+}
+
+function hintSeen() {
+  try {
+    return localStorage.getItem("playon-sheet-hint") === "1";
+  } catch (err) {
+    return false;
+  }
+}
+
+function syncSheetHint() {
+  const hint = document.getElementById("sheet-hint");
+  if (!hint) return;
+  hint.hidden = hintSeen() || !phone.matches;
+}
+
+function dismissSheetHint() {
+  if (hintSeen()) return;
+  try {
+    localStorage.setItem("playon-sheet-hint", "1");
+  } catch (err) {
+    /* The hint still hides for this visit. */
+  }
+  const hint = document.getElementById("sheet-hint");
+  if (hint) hint.hidden = true;
+  if (phone.matches) shell.style.setProperty("--peek", `${sheetStops().peek}px`);
 }
 
 function layoutSheet() {
   parkNotes();
+  syncSheetHint();
   if (!phone.matches) {
     sheet.style.transform = "";
     shell.style.removeProperty("--peek");
@@ -999,8 +1152,51 @@ map.on("click dragstart", () => {
   if (sheetState !== "peek") setSheet("peek");
 });
 
+function paintNight() {
+  document.body.classList.toggle("night", night);
+  const theme = document.querySelector('meta[name="theme-color"]');
+  if (theme) theme.setAttribute("content", night ? "#100e0c" : "#1c1915");
+  const button = document.getElementById("night");
+  if (button) button.setAttribute("aria-pressed", night ? "true" : "false");
+}
+
+function setNight(on) {
+  night = Boolean(on);
+  try {
+    localStorage.setItem("playon-night", night ? "1" : "0");
+  } catch (err) {
+    /* The map still switches for this visit if storage is blocked. */
+  }
+  paintNight();
+  setBaseMap(night);
+}
+
+function paintStationsToggle() {
+  const button = document.getElementById("stations-toggle");
+  if (!button) return;
+  button.setAttribute("aria-pressed", stationsOn ? "true" : "false");
+}
+
+function setStations(on, persist) {
+  stationsOn = Boolean(on);
+  if (persist) {
+    stationsChosen = true;
+    try {
+      localStorage.setItem("playon-stations", stationsOn ? "1" : "0");
+    } catch (err) {
+      /* The pins still toggle for this visit if storage is blocked. */
+    }
+  }
+  applyStations();
+  paintStationsToggle();
+}
+
 window.addEventListener("resize", layoutSheet);
-phone.addEventListener("change", layoutSheet);
+phone.addEventListener("change", () => {
+  if (!stationsChosen) setStations(!phone.matches, false);
+  layoutSheet();
+  render();
+});
 
 document.getElementById("route-fit").addEventListener("click", showWholeRoute);
 
@@ -1057,9 +1253,40 @@ document.querySelectorAll("[data-lang]").forEach((button) => {
   button.addEventListener("click", () => setLang(button.dataset.lang));
 });
 
+document.getElementById("night").addEventListener("click", () => setNight(!night));
+
+document.getElementById("stations-toggle").addEventListener("click", () => {
+  setStations(!stationsOn, true);
+});
+
+try {
+  const savedStations = localStorage.getItem("playon-stations");
+  if (savedStations === "0" || savedStations === "1") {
+    stationsOn = savedStations === "1";
+    stationsChosen = true;
+  } else {
+    stationsOn = !phone.matches;
+  }
+} catch (err) {
+  stationsOn = !phone.matches;
+}
+
 setLang(initialLang());
+applyStations();
 layoutSheet();
 if (openedFromDisk) showNotice({ key: "fromDisk" });
+
+if ("serviceWorker" in navigator && !openedFromDisk) {
+  navigator.serviceWorker.register("sw.js").then(() => {
+    const redraw = () => {
+      baseLayers.forEach((layer) => layer.redraw && layer.redraw());
+    };
+    if (navigator.serviceWorker.controller) redraw();
+    else navigator.serviceWorker.addEventListener("controllerchange", redraw, { once: true });
+  }).catch(() => {
+    /* The page still works online when the worker cannot be installed. */
+  });
+}
 map.on("popupopen", (event) => {
   if (sheetForPin) {
     sheetForPin = false;

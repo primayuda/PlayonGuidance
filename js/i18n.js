@@ -263,4 +263,36 @@ const I18N = {
     id: "IGD",
     en: "ER",
   },
+  night: {
+    id: "Malam",
+    en: "Night",
+  },
+  nightLabel: {
+    id: "Mode malam",
+    en: "Night mode",
+  },
+  noNumber: {
+    id: "Tidak ada nomor",
+    en: "No number",
+  },
+  filterToggle: {
+    id: "Saring",
+    en: "Filter",
+  },
+  filterOn: {
+    id: "Saring · {n}",
+    en: "Filter · {n}",
+  },
+  sheetHint: {
+    id: "Geser untuk daftar",
+    en: "Swipe for the list",
+  },
+  stationsToggle: {
+    id: "WS",
+    en: "WS",
+  },
+  stationsToggleLabel: {
+    id: "Tampilkan water station",
+    en: "Show water stations",
+  },
 };

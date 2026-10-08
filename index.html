@@ -4,13 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1c1915">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Playon">
   <title>Playon Guidance — rumah sakit di rute ITB UM 2026</title>
   <meta name="description" content="Rumah sakit, klinik, dan IGD di sepanjang rute ITB Ultra Marathon dari Jakarta ke Bandung, dengan nomor telepon dan peta untuk kru support Playon.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org https://server.arcgisonline.com; connect-src 'self'; font-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon.png">
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="css/styles.css?v=12">
+  <link rel="stylesheet" href="css/styles.css?v=13">
 </head>
 <body>
   <header class="top">
@@ -26,6 +31,7 @@
       </div>
     </div>
     <div class="head-actions">
+      <button type="button" id="night" class="night-toggle" aria-pressed="false" data-i18n-aria="nightLabel" aria-label="Mode malam" data-i18n="night">Malam</button>
       <div class="lang" data-i18n-aria="langLabel" role="group" aria-label="Bahasa">
         <button type="button" data-lang="id" aria-pressed="true">ID</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
@@ -38,6 +44,7 @@
     <aside class="panel" id="panel">
       <button type="button" class="sheet-handle" id="sheet-handle" aria-expanded="false" aria-controls="list">
         <span class="grabber" aria-hidden="true"></span>
+        <span class="sheet-hint" id="sheet-hint" hidden data-i18n="sheetHint">Geser untuk daftar</span>
         <span class="sheet-label" id="sheet-label"></span>
       </button>
       <div class="tools">
@@ -45,13 +52,14 @@
           <span class="sr" data-i18n="searchLabel">Cari rumah sakit</span>
           <input id="search" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Cari nama, tempat, atau telepon" autocomplete="off">
         </label>
-        <div class="filters" role="group" data-i18n-aria="filtersLabel" aria-label="Saring daftar">
+        <div class="segments" id="segments" role="group" data-i18n-aria="segmentsLabel" aria-label="Ruas rute"></div>
+        <button type="button" id="filter-toggle" class="chip filter-toggle" aria-expanded="false" aria-controls="filters" aria-pressed="false">Saring</button>
+        <div class="filters" id="filters" role="group" data-i18n-aria="filtersLabel" aria-label="Saring daftar">
           <button type="button" class="chip" data-filter="major" data-i18n="major" aria-pressed="false">IGD besar</button>
           <button type="button" class="chip" data-filter="overnight" data-i18n="overnight" aria-pressed="false">Buka semalaman</button>
           <button type="button" class="chip" data-filter="road" data-i18n="road" aria-pressed="false">Di jalan raya</button>
           <button type="button" class="chip" data-filter="detour" data-i18n="detour" aria-pressed="false">Menyimpang</button>
         </div>
-        <div class="segments" id="segments" role="group" data-i18n-aria="segmentsLabel" aria-label="Ruas rute"></div>
         <p class="count" id="count"></p>
         <div class="list-notes" id="list-notes">
           <p class="blurb" id="blurb"></p>
@@ -72,8 +80,12 @@
           <span data-i18n="nearest">Terdekat</span>
         </button>
         <button type="button" id="expand">Peta penuh</button>
-        <button type="button" id="legend-toggle" class="legend-toggle" aria-expanded="false" aria-controls="legend" data-i18n="legendToggle">Keterangan</button>
+        <div class="corner-tools">
+          <button type="button" id="stations-toggle" class="legend-toggle" aria-pressed="false" data-i18n="stationsToggle" data-i18n-aria="stationsToggleLabel" aria-label="Water station">WS</button>
+          <button type="button" id="legend-toggle" class="legend-toggle" aria-expanded="false" aria-controls="legend" data-i18n="legendToggle">Keterangan</button>
+        </div>
       </div>
+      <a class="ambulance ambulance-float" id="ambulance-float" href="tel:119"><span data-i18n="ambulance">Ambulans 119</span></a>
       <div class="map-dock">
         <div class="map-note" id="map-note" hidden>
           <p class="map-note-text" id="map-note-text"></p>
@@ -95,9 +107,9 @@
   </div>
 
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script src="js/data.js?v=14"></script>
+  <script src="js/data.js?v=17"></script>
   <script src="js/stations.js"></script>
-  <script src="js/i18n.js?v=2"></script>
-  <script src="js/app.js?v=14"></script>
+  <script src="js/i18n.js?v=3"></script>
+  <script src="js/app.js?v=17"></script>
 </body>
 </html>

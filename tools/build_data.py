@@ -73,12 +73,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="021-78882455",
     address="Jl. Moh. Kahfi I, Jagakarsa",
     km="",
     lat=-6.316176,
     lng=106.811363,
-    note="About 2 km off Jl. TB Simatupang. No phone in the crew notes.",
+    note="About 2 km off Jl. TB Simatupang. WhatsApp only: 0878-8654-8908.",
 )
 add(
     id="pasar-rebo",
@@ -141,12 +141,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="021-8093288",
     address="Jl. RS Polri, Kramat Jati",
     km="KM 19–20",
     lat=-6.269462,
     lng=106.870714,
-    note="Major trauma-capable emergency room. Same northern approach as Restu Kasih: not passed when entering from Pasar Rebo. No phone in the crew notes.",
+    note="Major trauma-capable emergency room. Same northern approach as Restu Kasih: not passed when entering from Pasar Rebo.",
 )
 add(
     id="pusdikkes",
@@ -175,12 +175,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="021-87791352",
     address="Jl. Raya Inpres, Kramat Jati",
     km="",
     lat=-6.286868,
     lng=106.862280,
-    note="Short detour off Jl. Raya Bogor. No phone in the crew notes.",
+    note="Short detour off Jl. Raya Bogor. Also 021-87793604.",
 )
 add(
     id="al-fauzan",
@@ -192,12 +192,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
-    address="Kramat Jati",
+    phone="021-8402821",
+    address="Jl. Pedati No. 3, Kramat Jati",
     km="",
     lat=-6.299599,
     lng=106.869086,
-    note="Crew notes call this a mother-and-child hospital. OpenStreetMap lists the building as RSU Al Fauzan. No phone in the crew notes.",
+    note="Crew notes call this a mother-and-child hospital. OpenStreetMap lists the building as RSU Al Fauzan. Registration WhatsApp: 0851-6286-4949.",
 )
 add(
     id="harapan-bunda",
@@ -226,12 +226,12 @@ add(
     open24=False,
     hours="08:00–20:30",
     exact=True,
-    phone="",
+    phone="021-87792558",
     address="Jl. Raya Bogor, Susukan",
     km="KM 24",
     lat=-6.314855,
     lng=106.863513,
-    note="Maternity clinic, not a full hospital. Closed overnight.",
+    note="Maternity clinic, not a full hospital. Closed overnight. Small-practice number; confirm it before race day.",
 )
 add(
     id="tugu-ibu",
@@ -277,12 +277,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="021-8701873",
     address="Jl. Raya Bogor, Tugu, Cimanggis",
     km="KM 31",
     lat=-6.371676,
     lng=106.861428,
-    note="Mother-and-child hospital. No phone in the crew notes.",
+    note="Mother-and-child hospital. Also 021-8701874. WhatsApp: 0811-6011-873.",
 )
 add(
     id="cisalak",
@@ -328,12 +328,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="021-77848008",
     address="Jl. H. Dimun, behind RS Simpangan",
     km="",
     lat=-6.407686,
     lng=106.851012,
-    note="Short detour behind RS Simpangan. No phone in the crew notes.",
+    note="Short detour behind RS Simpangan. The button is the emergency room. Contact center 1500 007. WhatsApp chatbot: 0822-8888-9702.",
 )
 add(
     id="trimitra",
@@ -362,12 +362,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="021-87903000",
     address="Jl. Mayor Oking, Cibinong",
     km="",
     lat=-6.473037,
     lng=106.863626,
-    note="The crew notes pair Bina Husada with Mitra Keluarga, both off the main road on Jl. Mayor Oking. OpenStreetMap still labels this building Bina Husada. No phone in the crew notes.",
+    note="The crew notes pair Bina Husada with Mitra Keluarga, both off the main road on Jl. Mayor Oking. OpenStreetMap still labels this building Bina Husada. The button is the emergency room. Information: 021-87911000. WhatsApp: 0812-8000-0911.",
 )
 add(
     id="sentra-cibinong",
@@ -379,12 +379,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="021-87909999",
     address="Jl. Mayor Oking, Cibinong",
     km="",
     lat=-6.480687,
     lng=106.864991,
-    note="Same side street as Mitra Keluarga / Bina Husada. No phone in the crew notes.",
+    note="Same side street as Mitra Keluarga / Bina Husada.",
 )
 add(
     id="rsud-cibinong",
@@ -396,12 +396,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="021-8753487",
     address="Jl. KSR Dadi Kusmayadi No. 27, Cibinong",
     km="",
     lat=-6.472985,
     lng=106.830064,
-    note="Large emergency room, a short way off Jl. Raya Bogor. No phone in the crew notes. The hospital website lists 021-8753487.",
+    note="Large emergency room, a short way off Jl. Raya Bogor. Number from the hospital website.",
 )
 add(
     id="assalam",
@@ -534,12 +534,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="0263-2956036",
     address="Jl. Raya Cimacan No. 17A, Cipanas",
     km="",
     lat=-6.721763,
     lng=107.033369,
-    note="Main referral for north Cianjur. Emergency room is 24 hours. The pin is the road beside the hospital. No phone in the crew notes.",
+    note="Main referral for north Cianjur. Emergency room is 24 hours. The pin is the road beside the hospital. Number from the hospital's current site. WhatsApp customer service: 0858-6481-7874.",
 )
 add(
     id="sayang",
@@ -638,12 +638,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
-    address="Jl. Selajambe No. 1, Hegarmanah, Sukaluyu",
+    phone="0815-6338-5059",
+    address="Jl. Selajambe No. 1, Hegarmanah, Sukaluyu, Cianjur 43284",
     km="",
     lat=-6.810301,
     lng=107.233345,
-    note="Maternity home, not a hospital. Published map point on Jl. Selajambe, about 350 m off the Cianjur–Ciranjang road. No phone in the crew notes.",
+    note="Maternity home, not a hospital. Published map point on Jl. Selajambe, about 350 m off the Cianjur–Ciranjang road. Number from Google Maps. It is a mobile number, so it can also be tried on WhatsApp; the listing does not label it as WhatsApp. Small-practice number; confirm it before race day.",
 )
 add(
     id="ciranjang",
@@ -694,7 +694,7 @@ add(
     km="",
     lat=-6.831849,
     lng=107.365805,
-    note="Open overnight. Confirmed Google Maps point for Puskesmas DTP Rajamandala, about 260 m off Jl. Raya Cipatat. No phone in the crew notes.",
+    note="Open overnight. Confirmed Google Maps point for Puskesmas DTP Rajamandala, about 260 m off Jl. Raya Cipatat. No public phone or WhatsApp. The practical channel is Instagram @puskesmasdtprajamandala, or walking in. Do not use 022-86861942 (a 2016 directory entry), 022-6900790 (a listing with the wrong address), or 0878-0579-9788 (Puskesmas Rawat Inap Mandala / Bidan Intan, a different facility). 022-6900457 is nearby Puskesmas Cipatat.",
 )
 add(
     id="rahmani",
@@ -706,12 +706,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="0811-2439-147",
     address="Jl. Raya Cipatat KM 32 No. 25, Cipatat",
     km="KM 32",
     lat=-6.824510,
     lng=107.384123,
-    note="Open overnight. Confirmed Google Maps point for Rahmani Medical Clinic, on Jl. Raya Cipatat KM 32. No phone in the crew notes.",
+    note="Open overnight. Confirmed Google Maps point for Rahmani Medical Clinic, on Jl. Raya Cipatat KM 32. Small-practice number; confirm it before race day.",
 )
 add(
     id="gap-citatah",
@@ -740,12 +740,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="022-6804440",
     address="Jl. Letkol G.A. Manulang No. 46, Padalarang",
     km="",
     lat=-6.843775,
     lng=107.480389,
-    note="Mother-and-child hospital in Padalarang town. No phone in the crew notes.",
+    note="Mother-and-child hospital in Padalarang town. A maps listing also shows 0812-9106-3006.",
 )
 add(
     id="graha-medika",
@@ -757,12 +757,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="022-87785998",
     address="Jl. Raya Padalarang, Komplek Padalarang Point",
     km="",
     lat=-6.844625,
     lng=107.486268,
-    note="In Padalarang town. No phone in the crew notes.",
+    note="In Padalarang town. WhatsApp: 0813-9522-5860.",
 )
 add(
     id="cahya",
@@ -774,12 +774,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="022-6803700",
     address="Jl. Parahyangan Raya, near the Padalarang toll exit",
     km="KM 3",
     lat=-6.865514,
     lng=107.473805,
-    note="Large general hospital south of Padalarang town, toward Kota Baru Parahyangan. Useful if you are already near the toll exit. No phone in the crew notes.",
+    note="Large general hospital south of Padalarang town, toward Kota Baru Parahyangan. Useful if you are already near the toll exit. Also 022-6803701. WhatsApp: 0812-1111-8009.",
 )
 add(
     id="parahyangan",
@@ -895,12 +895,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="022-20670808",
     address="Jl. Baros, Cimahi Tengah",
     km="",
     lat=-6.891446,
     lng=107.536899,
-    note="Short detour. No phone in the crew notes.",
+    note="Short detour. WhatsApp: 0813-1339-9345.",
 )
 add(
     id="kasih-bunda",
@@ -946,12 +946,12 @@ add(
     open24=False,
     hours="07:30–14:30",
     exact=True,
-    phone="",
+    phone="0812-2176-3876",
     address="Jl. Jenderal H. Amir Machmud No. 126, Cibeureum",
     km="",
     lat=-6.900583,
     lng=107.562561,
-    note="Puskesmas, not a hospital. Daytime only. Do not count on it during the night legs.",
+    note="Puskesmas, not a hospital. Daytime only. Do not count on it during the night legs. The button is the official Linktree WhatsApp for home consultation (Hay Sultan Daru), for the site at Jl. Tirta Indah No. 88-A, Cimahi Selatan. This pin is still the earlier listing on Jl. Amir Machmud. 022-6075623 is an old landline also listed for Puskesmas Melongasih, so it was not used. 022-6629300 is Puskesmas Cimahi Selatan on Jl. Baros. City fallback, not this clinic: WA Mantap Cimahi 0822-8999-9034.",
 )
 add(
     id="avisena",
@@ -963,12 +963,12 @@ add(
     open24=True,
     hours="24 hours",
     exact=True,
-    phone="",
+    phone="022-6000830",
     address="Jl. Melong No. 170, Cimahi Selatan",
     km="",
     lat=-6.921782,
     lng=107.555953,
-    note="South of Cibeureum, toward the Bandung approach. No phone in the crew notes.",
+    note="South of Cibeureum, toward the Bandung approach.",
 )
 
 segments = [
