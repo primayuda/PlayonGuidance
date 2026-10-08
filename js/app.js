@@ -16,6 +16,9 @@ const endpoints = [];
 const phone = window.matchMedia("(max-width: 860px)");
 let sheetState = "peek";
 let sheetOffset = 0;
+let cardStop = 0;
+let pinOpenedAt = 0;
+let sheetForPin = false;
 
 const map = L.map("map", { scrollWheelZoom: true });
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -315,7 +318,7 @@ function syncMarkers(places) {
         icon: iconFor(place),
         zIndexOffset: place.major_er ? 300 : place.kind === "gap" ? 200 : 0,
       }).addTo(map);
-      marker.on("click", () => select(place.id, false));
+      marker.on("click", () => openFromPin(place.id));
       marker.bindPopup(popupHtml(place), popupOptions());
       markers.set(place.id, marker);
       return;
@@ -374,6 +377,7 @@ function renderList(places) {
         return;
       }
       if (event.target.closest("a")) return;
+      if (phone.matches && card.dataset.id === state.selected && sheetState !== "peek") return;
       if (phone.matches) {
         if (document.activeElement && document.activeElement.id === "search") document.activeElement.blur();
         setSheet("peek");
@@ -816,7 +820,44 @@ function sheetStops() {
   const peek = Math.round(searchInput.offsetTop + searchInput.offsetHeight + 12 + bottomInset);
   const full = sheet.offsetHeight;
   const half = Math.max(peek + 80, Math.min(full, Math.round(shell.clientHeight * 0.55)));
-  return { peek, half, full };
+  return { peek, half, full, card: cardStop || half };
+}
+
+/* A pin tap on a phone raises the list far enough to show that place. */
+function openFromPin(id) {
+  if (!phone.matches) {
+    select(id, false);
+    return;
+  }
+  sheetForPin = true;
+  pinOpenedAt = performance.now();
+  state.selected = id;
+  document.querySelectorAll(".card").forEach((card) => {
+    card.classList.toggle("selected", card.dataset.id === id);
+  });
+  const card = document.querySelector(`.card[data-id="${CSS.escape(id)}"]`);
+  map.closePopup();
+  if (!card) return;
+  const list = document.getElementById("list");
+  const cardTop = card.getBoundingClientRect().top - list.getBoundingClientRect().top + list.scrollTop;
+  list.scrollTop = Math.max(0, cardTop - 8);
+  const needed = Math.ceil(card.getBoundingClientRect().bottom - sheet.getBoundingClientRect().top + 18);
+  const stops = sheetStops();
+  cardStop = Math.min(stops.full, Math.max(stops.half, needed));
+  setSheet("card");
+  const place = GUIDE.places.find((item) => item.id === id);
+  if (place) revealPinAboveSheet(place);
+}
+
+function revealPinAboveSheet(place) {
+  const size = map.getSize();
+  const cover = Math.max(0, cardStop - sheetStops().peek);
+  const visible = Math.max(120, size.y - cover);
+  const point = map.latLngToContainerPoint([place.lat, place.lng]);
+  const dy = point.y - Math.round(visible * 0.42);
+  if (Math.abs(dy) < 24) return;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  map.panBy([0, dy], { animate: !reduce });
 }
 
 function placeSheet(offset) {
@@ -920,6 +961,7 @@ legendToggle.addEventListener("click", () => {
 
 map.on("click dragstart", () => {
   if (!phone.matches) return;
+  if (performance.now() - pinOpenedAt < 450) return;
   setLegend(false);
   if (sheetState !== "peek") setSheet("peek");
 });
@@ -984,6 +1026,13 @@ document.querySelectorAll("[data-lang]").forEach((button) => {
 
 setLang(initialLang());
 layoutSheet();
-map.on("popupopen", (event) => bindPopupMore(event.popup));
+map.on("popupopen", (event) => {
+  if (sheetForPin) {
+    sheetForPin = false;
+    map.closePopup();
+    return;
+  }
+  bindPopupMore(event.popup);
+});
 map.on("moveend", syncRouteReturn);
 fitTo(GUIDE.places.filter(visible), false);
