@@ -21,10 +21,15 @@ let pinOpenedAt = 0;
 let sheetForPin = false;
 
 const map = L.map("map", { scrollWheelZoom: true });
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  maxZoom: 19,
-}).addTo(map);
+/* OpenStreetMap refuses tiles to a page with no web address, so a copy opened
+   from disk would only show "Access blocked" squares. */
+const openedFromDisk = location.protocol === "file:";
+if (!openedFromDisk) {
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19,
+  }).addTo(map);
+}
 
 L.polyline(GUIDE.route, { color: "#fffaf3", weight: 9, opacity: 0.95, lineJoin: "round" }).addTo(map);
 const corridor = L.polyline(GUIDE.route, { color: "#c65314", weight: 4, opacity: 0.95, lineJoin: "round" }).addTo(map);
@@ -238,6 +243,12 @@ function hoursBrief(place) {
   return `<div class="tags tags-brief"><span class="tag">${escapeHtml(t("hours24"))}</span></div>`;
 }
 
+function hoursChip(place) {
+  const label = text(place.hours);
+  if (!label) return "";
+  return `<span class="tag${place.open24 ? "" : " hours-off"}">${escapeHtml(label)}</span>`;
+}
+
 function moreButton(className) {
   return `<button type="button" class="more ${className}" aria-expanded="false">${escapeHtml(t("showMore"))}</button>`;
 }
@@ -329,9 +340,20 @@ function syncMarkers(places) {
   });
 }
 
+function parkNotes() {
+  const notes = document.getElementById("list-notes");
+  const list = document.getElementById("list");
+  const tools = document.querySelector(".tools");
+  if (!notes || !list || !tools) return;
+  const home = phone.matches ? list : tools;
+  if (notes.parentElement !== home) home.append(notes);
+}
+
 function renderList(places) {
   const list = document.getElementById("list");
   const count = document.getElementById("count");
+  const notes = document.getElementById("list-notes");
+  if (notes && notes.parentElement === list) document.querySelector(".tools").append(notes);
   count.textContent = places.length === 1 ? t("countOne") : t("countMany").replace("{n}", String(places.length));
   document.getElementById("sheet-label").textContent = places.length === 1
     ? t("sheetOne")
@@ -343,27 +365,29 @@ function renderList(places) {
     empty.className = "empty";
     empty.textContent = t("empty");
     list.append(empty);
+    parkNotes();
     return;
   }
 
   list.innerHTML = places.map((place) => {
-    const phone = place.tel
+    const phoneLink = place.tel
       ? `<a class="phone" href="tel:${escapeHtml(place.tel)}">${escapeHtml(place.phone)}</a>`
       : "";
     const selected = place.id === state.selected ? " selected" : "";
     return `<article class="card${place.kind === "gap" ? " gap" : ""}${selected}" data-id="${escapeHtml(place.id)}">
       <div class="card-top"><h2>${escapeHtml(text(place.name))}</h2>${distanceLabel(place)}</div>
       <div class="tags tags-full">${tags(place)}</div>
-      ${hoursBrief(place)}
-      ${phone}
-      <div class="actions">${directionsLink(place)}${moreButton("")}</div>
+      <div class="card-brief">${hoursChip(place)}${moreButton("")}</div>
+      ${phoneLink}
+      <div class="actions">${directionsLink(place)}</div>
       <div class="card-extra">
-        <div class="tags tags-detail">${tags(place, { skipHours: place.open24 })}</div>
+        <div class="tags tags-detail">${tags(place, { skipHours: true })}</div>
         <p class="meta">${escapeHtml(text(place.address))}</p>
         <p class="note">${escapeHtml(text(place.note))}</p>
       </div>
     </article>`;
   }).join("");
+  parkNotes();
 
   list.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", (event) => {
@@ -374,6 +398,14 @@ function renderList(places) {
         const open = card.classList.toggle("is-open");
         more.setAttribute("aria-expanded", open ? "true" : "false");
         more.textContent = open ? t("showLess") : t("showMore");
+        if (open && phone.matches) {
+          const extra = card.querySelector(".card-extra");
+          const extraBottom = extra.getBoundingClientRect().bottom;
+          const visibleBottom = Math.min(list.getBoundingClientRect().bottom, window.innerHeight);
+          if (extraBottom > visibleBottom - 8) {
+            list.scrollBy({ top: extraBottom - visibleBottom + 12 });
+          }
+        }
         return;
       }
       if (event.target.closest("a")) return;
@@ -874,6 +906,7 @@ function setSheet(state) {
 }
 
 function layoutSheet() {
+  parkNotes();
   if (!phone.matches) {
     sheet.style.transform = "";
     shell.style.removeProperty("--peek");
@@ -1026,6 +1059,7 @@ document.querySelectorAll("[data-lang]").forEach((button) => {
 
 setLang(initialLang());
 layoutSheet();
+if (openedFromDisk) showNotice({ key: "fromDisk" });
 map.on("popupopen", (event) => {
   if (sheetForPin) {
     sheetForPin = false;

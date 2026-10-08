@@ -16,7 +16,13 @@ The race is 16–18 October 2026. The site opens in Indonesian. Switch to Englis
 
 ## Open it
 
-Open `index.html` in a browser. There is no build step. The map tiles need a network connection.
+There is no build step. To preview it on this computer, run this in the folder and open http://localhost:8000:
+
+```sh
+python3 -m http.server 8000
+```
+
+Opening `index.html` straight from the file leaves the base map blank, because OpenStreetMap refuses tiles to a page with no web address. The map tiles also need a network connection.
 
 - Search by name, place, or phone.
 - Filter for a major emergency room, places open overnight, places on the road, or detours.

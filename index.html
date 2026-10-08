@@ -10,7 +10,7 @@
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="css/styles.css?v=11">
+  <link rel="stylesheet" href="css/styles.css?v=12">
 </head>
 <body>
   <header class="top">
@@ -53,11 +53,13 @@
         </div>
         <div class="segments" id="segments" role="group" data-i18n-aria="segmentsLabel" aria-label="Ruas rute"></div>
         <p class="count" id="count"></p>
-        <p class="blurb" id="blurb"></p>
-        <details class="about">
-          <summary data-i18n="aboutSummary">Tentang pin ini</summary>
-          <p data-i18n="aboutBody">Nomor telepon dan jam buka dari catatan kru Playon. Pin penuh cocok dengan OpenStreetMap atau lokasi peta yang terbit. Pin kosong diperkirakan dari patok kilometer atau desa sekitarnya, dan perlu dicek sebelum hari lomba. Garis oranye adalah rute ITB Ultra Marathon 2026 dari peta lomba, sekitar 178 km, dari Kemdiktisaintek sampai kampus ITB. Pin WS adalah water station pada peta itu: WS1 setelah start sampai WS15, lalu finis di kampus ITB.</p>
-        </details>
+        <div class="list-notes" id="list-notes">
+          <p class="blurb" id="blurb"></p>
+          <details class="about">
+            <summary data-i18n="aboutSummary">Tentang pin ini</summary>
+            <p data-i18n="aboutBody">Nomor telepon dan jam buka dari catatan kru Playon. Pin penuh cocok dengan OpenStreetMap atau lokasi peta yang terbit. Pin kosong diperkirakan dari patok kilometer atau desa sekitarnya, dan perlu dicek sebelum hari lomba. Garis oranye adalah rute ITB Ultra Marathon 2026 dari peta lomba, sekitar 178 km, dari Kemdiktisaintek sampai kampus ITB. Pin WS adalah water station pada peta itu: WS1 setelah start sampai WS15, lalu finis di kampus ITB.</p>
+          </details>
+        </div>
       </div>
       <div id="list" class="list"></div>
     </aside>
@@ -95,7 +97,7 @@
   <script src="vendor/leaflet/leaflet.js"></script>
   <script src="js/data.js?v=14"></script>
   <script src="js/stations.js"></script>
-  <script src="js/i18n.js"></script>
-  <script src="js/app.js?v=12"></script>
+  <script src="js/i18n.js?v=2"></script>
+  <script src="js/app.js?v=14"></script>
 </body>
 </html>

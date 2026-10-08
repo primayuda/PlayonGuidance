@@ -243,6 +243,10 @@ const I18N = {
     id: "Lokasi tidak tersedia. Daftar tetap bisa dicari.",
     en: "Location was not available. You can still search the list.",
   },
+  fromDisk: {
+    id: "Peta dasar tidak tampil karena halaman ini dibuka langsung dari file. Di folder ini jalankan python3 -m http.server 8000, lalu buka http://localhost:8000.",
+    en: "The base map is hidden because this page was opened straight from a file. In this folder run python3 -m http.server 8000, then open http://localhost:8000.",
+  },
   letterStart: {
     id: "Awal",
     en: "Start",

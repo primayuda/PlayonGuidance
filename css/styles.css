@@ -360,6 +360,8 @@ input:focus-visible {
   text-underline-offset: 0.15em;
 }
 
+.card-brief { display: none; }
+
 .tags-brief,
 .tags-detail { display: none; }
 
@@ -822,18 +824,73 @@ body.map-full #map {
     flex: 1;
     overflow: auto;
     overscroll-behavior: contain;
-    padding: 0 0.75rem 1.2rem;
+    padding: 0.2rem 0.75rem 1.2rem;
+  }
+  .list-notes {
+    margin-top: 0.35rem;
+    padding-bottom: 0.2rem;
   }
 
   .tags-full { display: none; }
   .tags-brief { display: flex; }
   .tags-detail { display: flex; }
+  .card-brief { display: flex; }
   .card-extra { display: none; }
   .card.is-open .card-extra,
   .popup-card.is-open .card-extra { display: block; }
-  .card .phone { order: 1; }
-  .card .actions { order: 2; }
-  .card .card-extra { order: 3; }
+  .card.gap .card-extra { display: block; order: 1; }
+  .card.gap .actions { order: 2; }
+  .card.gap .card-brief,
+  .card.gap .tags-detail { display: none; }
+  .card.gap .note { color: var(--ink); }
+  .card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    column-gap: 0.5rem;
+    row-gap: 0.4rem;
+    align-items: stretch;
+    padding: 0.75rem 0.8rem 0.7rem;
+  }
+  .card-top {
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 0.6rem;
+  }
+  .card h2 { flex: 1 1 11rem; min-width: 0; }
+  .card-brief {
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+  }
+  .card-brief .more { margin-left: auto; flex: none; }
+  .card .phone,
+  .card .actions,
+  .card .card-extra { order: unset; }
+  .card .phone {
+    grid-column: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    margin: 0;
+    padding: 0 0.65rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #f6f1e7;
+    font-size: 0.98rem;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .card .phone:hover { color: #fff; }
+  .card:not(:has(a.phone)) .actions { grid-column: 1 / -1; }
+  .card .actions {
+    grid-column: 2;
+    margin: 0;
+  }
+  .card .card-extra { grid-column: 1 / -1; }
   .phone {
     display: inline-flex;
     align-items: center;
@@ -845,8 +902,9 @@ body.map-full #map {
   .more {
     display: inline-flex;
     align-items: center;
-    min-height: 2.5rem;
-    padding: 0 0.9rem;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0 0.85rem;
     border: 1px solid #cfd8e6;
     border-radius: 999px;
     background: #f4f7fc;
@@ -854,6 +912,7 @@ body.map-full #map {
     text-decoration: none;
     font-size: 0.9rem;
   }
+  .card .actions a { flex: 1; width: 100%; }
 }
 
 @media (hover: none) {
