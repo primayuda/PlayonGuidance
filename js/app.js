@@ -529,6 +529,13 @@ function nudgePopupIntoView(popupEl, here) {
   if (x || y) map.panBy([x, y], { animate: false });
 }
 
+/* How much of the map the sheet covers at its target stop.
+   The sheet slides, so measuring it mid-slide zooms the whole route out. */
+function sheetCover() {
+  const stops = sheetStops();
+  return Math.max(0, Math.round(stops[sheetState] - stops.peek));
+}
+
 function mapPadding() {
   if (!phone.matches) {
     const dock = document.querySelector(".map-dock");
@@ -539,13 +546,12 @@ function mapPadding() {
     };
   }
   const size = map.getSize();
-  const mapRect = map.getContainer().getBoundingClientRect();
-  const sheetTop = sheet.getBoundingClientRect().top;
-  const covered = Math.max(0, Math.round(mapRect.bottom - sheetTop));
+  const covered = sheetCover();
   let extra = covered < 72 ? 72 : 12;
   const note = document.getElementById("map-note");
   if (note && !note.hidden) {
     const noteRect = note.getBoundingClientRect();
+    const sheetTop = sheet.getBoundingClientRect().top;
     if (noteRect.height > 1 && noteRect.top < sheetTop - 4) extra += Math.round(noteRect.height) + 8;
   }
   let bottom = covered + extra;
