@@ -1,4 +1,4 @@
-"""Build js/data.js from checked hospital coordinates and the driving corridor."""
+"""Build js/data.js from checked hospital coordinates and the race route."""
 import json
 import re
 from pathlib import Path
@@ -1007,24 +1007,27 @@ segments = [
 ]
 
 guide = {
-    "routeKm": 194.3,
+    "routeKm": 177.9,
     "route": route,
     "start": {
         "name": pair("Start", START["name"]),
-        "detail": pair("Graha BNI, Jl. Jenderal Sudirman, Jakarta"),
-        "lat": -6.203565,
-        "lng": 106.820427,
+        "detail": pair(
+            "Kemdiktisaintek, Jakarta",
+            "Kementerian Pendidikan Tinggi, Sains, dan Teknologi, Jakarta",
+        ),
+        "lat": -6.224047,
+        "lng": 106.803681,
         "note": pair(
-            "Published start area for ITB Ultra Marathon 2026. This is the Sudirman address, not a surveyed race GPS point.",
+            "Start on the ITB Ultra Marathon 2026 map.",
             START["note"],
         ),
     },
     "finish": {
         "name": pair("Finish", FINISH["name"]),
-        "detail": pair("Saraga ITB, Jl. Tamansari, Bandung"),
-        "lat": -6.886230,
-        "lng": 107.609940,
-        "note": pair("Sarana Olahraga Ganesha, the published finish at ITB.", FINISH["note"]),
+        "detail": pair("Kampus ITB, Bandung"),
+        "lat": -6.891030,
+        "lng": 107.610244,
+        "note": pair("Finish on the ITB Ultra Marathon 2026 map.", FINISH["note"]),
     },
     "segments": segments,
     "places": places,

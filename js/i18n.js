@@ -4,8 +4,8 @@ const I18N = {
     en: "Playon Guidance — hospitals on the ITB UM 2026 route",
   },
   description: {
-    id: "Rumah sakit, klinik, dan IGD di sepanjang koridor ITB Ultra Marathon dari Jakarta ke Bandung, dengan nomor telepon dan peta untuk kru support Playon.",
-    en: "Hospitals, clinics, and emergency rooms along the ITB Ultra Marathon corridor from Jakarta to Bandung, with phones and a route map for the Playon support crew.",
+    id: "Rumah sakit, klinik, dan IGD di sepanjang rute ITB Ultra Marathon dari Jakarta ke Bandung, dengan nomor telepon dan peta untuk kru support Playon.",
+    en: "Hospitals, clinics, and emergency rooms along the ITB Ultra Marathon route from Jakarta to Bandung, with phones and a route map for the Playon support crew.",
   },
   logoAlt: {
     id: "Logo ITB 85, 40 tahun",
@@ -72,8 +72,8 @@ const I18N = {
     en: "About these pins",
   },
   aboutBody: {
-    id: "Nomor telepon dan jam buka dari catatan kru Playon. Pin penuh cocok dengan OpenStreetMap atau lokasi peta yang terbit. Pin kosong diperkirakan dari patok kilometer atau desa sekitarnya, dan perlu dicek sebelum hari lomba. Garis oranye adalah koridor berkendara di jalan-jalan itu, sekitar 194 km. Ini acuan kru support, bukan GPS resmi lomba.",
-    en: "Phones and hours are from the Playon crew notes. Solid pins were matched to OpenStreetMap or a published map location. Hollow pins were estimated from a kilometer marker or the surrounding village, and should be confirmed before race day. The orange line is the driving corridor along those roads, about 194 km. It is a support reference, not the official race GPS.",
+    id: "Nomor telepon dan jam buka dari catatan kru Playon. Pin penuh cocok dengan OpenStreetMap atau lokasi peta yang terbit. Pin kosong diperkirakan dari patok kilometer atau desa sekitarnya, dan perlu dicek sebelum hari lomba. Garis oranye adalah rute ITB Ultra Marathon 2026 dari peta lomba, sekitar 178 km, dari Kemdiktisaintek sampai kampus ITB. Pin WS adalah water station pada peta itu: WS1 setelah start sampai WS15, lalu finis di kampus ITB.",
+    en: "Phones and hours are from the Playon crew notes. Solid pins were matched to OpenStreetMap or a published map location. Hollow pins were estimated from a kilometer marker or the surrounding village, and should be confirmed before race day. The orange line is the ITB Ultra Marathon 2026 route from the race map, about 178 km, from Kemdiktisaintek to the ITB campus. WS pins are the water stations on that map: WS1 after the start through WS15, then the finish at the ITB campus.",
   },
   mapLabel: {
     id: "Peta rumah sakit di sepanjang rute",
@@ -112,8 +112,44 @@ const I18N = {
     en: "Approximate pin",
   },
   legendRoute: {
-    id: "Koridor berkendara",
-    en: "Driving corridor",
+    id: "Rute lomba",
+    en: "Race route",
+  },
+  legendYou: {
+    id: "Lokasi Anda",
+    en: "Your location",
+  },
+  youAreHere: {
+    id: "Lokasi Anda",
+    en: "Your location",
+  },
+  legendWs: {
+    id: "Water station",
+    en: "Water station",
+  },
+  wsName: {
+    id: "Water station",
+    en: "Water station",
+  },
+  wsFinish: {
+    id: "Finis",
+    en: "Finish",
+  },
+  wsKm: {
+    id: "{km} dari awal",
+    en: "{km} from the start",
+  },
+  wsEle: {
+    id: "Elevasi {ele} m",
+    en: "Elevation {ele} m",
+  },
+  wsNext: {
+    id: "Water station berikutnya {km} lagi",
+    en: "Next water station in {km}",
+  },
+  wsToFinish: {
+    id: "Finis {km} lagi",
+    en: "Finish in {km}",
   },
   countOne: {
     id: "1 di peta",
@@ -150,6 +186,14 @@ const I18N = {
   hours24: {
     id: "24 jam",
     en: "24 hours",
+  },
+  showMore: {
+    id: "Selengkapnya",
+    en: "More",
+  },
+  showLess: {
+    id: "Ringkas",
+    en: "Less",
   },
   tagDetour: {
     id: "Menyimpang",

@@ -243,6 +243,8 @@ input:focus-visible {
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   text-align: left;
   border: 1px solid var(--line);
@@ -327,10 +329,29 @@ input:focus-visible {
   margin-top: 0.55rem;
 }
 
-.actions a {
+.card .card-extra { order: 1; }
+.card .phone { order: 2; }
+.card .actions { order: 3; }
+
+.actions a,
+.more {
   font-size: 0.86rem;
   color: var(--rsia);
 }
+
+.more {
+  display: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.tags-brief,
+.tags-detail { display: none; }
 
 .empty {
   padding: 1rem 0.2rem;
@@ -417,6 +438,14 @@ input:focus-visible {
 .swatch.clinic { background: var(--clinic); }
 .swatch.approx { background: transparent; border: 2px dashed #8a5a12; }
 .swatch.route { background: var(--route); border-radius: 2px; height: 0.28rem; }
+.swatch.ws { background: #0b3a4a; border-radius: 999px; width: 1.15rem; height: 0.55rem; }
+.swatch.you {
+  width: 0.55rem;
+  height: 0.55rem;
+  background: #1d4ed8;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+}
 
 .pin {
   border-radius: 50%;
@@ -466,6 +495,27 @@ input:focus-visible {
   font-size: 0.72rem;
   font-weight: 800;
   border-radius: 0.25rem;
+}
+.pin.ws {
+  background: #0b3a4a;
+  color: #f4fbff;
+  display: grid;
+  place-items: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+.pin.ws.finish {
+  box-shadow: 0 0 0 2px #e7b089, 0 1px 4px rgba(0, 0, 0, 0.35);
+}
+.pin.here {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
 }
 
 .leaflet-popup-content {
@@ -554,6 +604,19 @@ body.map-full #map {
     top: 0;
     z-index: 30;
   }
+  .leaflet-popup-content {
+    max-width: calc(100vw - 8.5rem);
+  }
+  .tags-full { display: none; }
+  .tags-brief { display: flex; }
+  .tags-detail { display: flex; }
+  .card-extra { display: none; }
+  .card.is-open .card-extra,
+  .popup-card.is-open .card-extra { display: block; }
+  .more { display: inline; }
+  .card .phone { order: 1; }
+  .card .actions { order: 2; }
+  .card .card-extra { order: 3; }
   body.map-full .map-wrap { height: 100vh; position: relative; }
   body.map-full .top,
   body.map-full .panel { display: none; }

@@ -78,10 +78,10 @@ SEGMENTS = {
 
 START = {
     "name": "Awal",
-    "note": "Area start yang diumumkan untuk ITB Ultra Marathon 2026. Ini alamat di Sudirman, bukan titik GPS lomba yang disurvei.",
+    "note": "Titik start pada peta ITB Ultra Marathon 2026.",
 }
 
 FINISH = {
     "name": "Finis",
-    "note": "Sarana Olahraga Ganesha, finis yang diumumkan di ITB.",
+    "note": "Finis pada peta ITB Ultra Marathon 2026.",
 }

@@ -25,4 +25,4 @@ Open `index.html` in a browser. There is no build step. The map tiles need a net
 - **Terdekat** finds the nearest place from your location.
 - **Ambulans 119** stays in the header.
 
-The orange line is a driving corridor of about 194 km for the support crew. It is not the official race GPS. Hollow pins are approximate and should be confirmed before race day. Phones and hours come from the Playon crew notes.
+The orange line is the ITB Ultra Marathon 2026 route from the [race map](https://www.google.com/maps/d/viewer?mid=18xsq7cKCM6lcQOvMwXg0qjceXzdH4_o), about 178 km. Hollow pins are approximate and should be confirmed before race day. Phones and hours come from the Playon crew notes.

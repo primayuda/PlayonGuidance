@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1c1915">
   <title>Playon Guidance — rumah sakit di rute ITB UM 2026</title>
-  <meta name="description" content="Rumah sakit, klinik, dan IGD di sepanjang koridor ITB Ultra Marathon dari Jakarta ke Bandung, dengan nomor telepon dan peta untuk kru support Playon.">
+  <meta name="description" content="Rumah sakit, klinik, dan IGD di sepanjang rute ITB Ultra Marathon dari Jakarta ke Bandung, dengan nomor telepon dan peta untuk kru support Playon.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'">
   <link rel="icon" href="favicon.ico" sizes="48x48">
   <link rel="icon" href="favicon.png" type="image/png">
@@ -49,7 +49,7 @@
         <p class="blurb" id="blurb"></p>
         <details class="about">
           <summary data-i18n="aboutSummary">Tentang pin ini</summary>
-          <p data-i18n="aboutBody">Nomor telepon dan jam buka dari catatan kru Playon. Pin penuh cocok dengan OpenStreetMap atau lokasi peta yang terbit. Pin kosong diperkirakan dari patok kilometer atau desa sekitarnya, dan perlu dicek sebelum hari lomba. Garis oranye adalah koridor berkendara di jalan-jalan itu, sekitar 194 km. Ini acuan kru support, bukan GPS resmi lomba.</p>
+          <p data-i18n="aboutBody">Nomor telepon dan jam buka dari catatan kru Playon. Pin penuh cocok dengan OpenStreetMap atau lokasi peta yang terbit. Pin kosong diperkirakan dari patok kilometer atau desa sekitarnya, dan perlu dicek sebelum hari lomba. Garis oranye adalah rute ITB Ultra Marathon 2026 dari peta lomba, sekitar 178 km, dari Kemdiktisaintek sampai kampus ITB. Pin WS adalah water station pada peta itu: WS1 setelah start sampai WS15, lalu finis di kampus ITB.</p>
         </details>
       </div>
       <div id="list" class="list"></div>
@@ -68,13 +68,16 @@
         <li><i class="swatch rsia"></i><span data-i18n="legendRsia">Ibu dan anak</span></li>
         <li><i class="swatch clinic"></i><span data-i18n="legendClinic">Klinik atau puskesmas</span></li>
         <li><i class="swatch approx"></i><span data-i18n="legendApprox">Pin perkiraan</span></li>
-        <li><i class="swatch route"></i><span data-i18n="legendRoute">Koridor berkendara</span></li>
+        <li><i class="swatch ws"></i><span data-i18n="legendWs">Water station</span></li>
+        <li><i class="swatch route"></i><span data-i18n="legendRoute">Rute lomba</span></li>
+        <li><i class="swatch you"></i><span data-i18n="legendYou">Lokasi Anda</span></li>
       </ul>
     </div>
   </div>
 
   <script src="vendor/leaflet/leaflet.js"></script>
   <script src="js/data.js"></script>
+  <script src="js/stations.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
 </body>

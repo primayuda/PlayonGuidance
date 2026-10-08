@@ -91,6 +91,80 @@ function addEndpoint(point, letterKey) {
 addEndpoint(GUIDE.start, "letterStart");
 addEndpoint(GUIDE.finish, "letterFinish");
 
+const stationMarkers = [];
+
+function formatKm(km) {
+  const digits = km.toFixed(1);
+  return `${lang === "id" ? digits.replace(".", ",") : digits} km`;
+}
+
+function stationIcon(station) {
+  const label = `WS${station.n}`;
+  const width = label.length > 3 ? 44 : 36;
+  return L.divIcon({
+    className: `pin ws${station.finish ? " finish" : ""}`,
+    html: `<span>${escapeHtml(label)}</span>`,
+    iconSize: [width, 22],
+    iconAnchor: [width / 2, 11],
+    popupAnchor: [0, -12],
+  });
+}
+
+function stationPopup(station) {
+  const role = station.finish ? t("wsFinish") : t("wsName");
+  const place = station.cp ? `${station.name} · ${station.cp}` : station.name;
+  const lines = [
+    `<strong>WS${station.n} · ${escapeHtml(role)}</strong>`,
+    escapeHtml(place),
+    escapeHtml(t("wsKm").replace("{km}", formatKm(station.km))),
+    escapeHtml(t("wsEle").replace("{ele}", String(station.ele))),
+  ];
+  if (station.nextKm) {
+    const key = station.toFinish ? "wsToFinish" : "wsNext";
+    lines.push(escapeHtml(t(key).replace("{km}", formatKm(station.nextKm))));
+  }
+  return lines.join("<br>");
+}
+
+function hereIcon() {
+  return L.divIcon({
+    className: "pin here",
+    html: `<svg viewBox="0 0 36 48" width="36" height="48" aria-hidden="true">
+      <path d="M18 46C18 46 4 27 4 16a14 14 0 1 1 28 0c0 11-14 30-14 30z" fill="#1d4ed8" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>
+      <circle cx="18" cy="16" r="5" fill="#fff"/>
+    </svg>`,
+    iconSize: [36, 48],
+    iconAnchor: [18, 46],
+    popupAnchor: [0, -44],
+  });
+}
+
+function paintHere() {
+  if (!hereMarker) return;
+  hereMarker.setIcon(hereIcon());
+  const label = t("youAreHere");
+  hereMarker.setPopupContent(`<strong>${escapeHtml(label)}</strong>`);
+  hereMarker.setTooltipContent(label);
+}
+
+function paintStations() {
+  stationMarkers.forEach(({ marker, station }) => {
+    marker.setIcon(stationIcon(station));
+    marker.setPopupContent(stationPopup(station));
+    marker.setTooltipContent(`WS${station.n} · ${station.name}`);
+  });
+}
+
+(GUIDE.stations || []).forEach((station) => {
+  const marker = L.marker([station.lat, station.lng], {
+    icon: stationIcon(station),
+    zIndexOffset: 450,
+  }).addTo(map);
+  marker.bindPopup("");
+  marker.bindTooltip("", { direction: "top", offset: [0, -8] });
+  stationMarkers.push({ marker, station });
+});
+
 function visible(place) {
   if (state.segment !== "all" && place.segment !== state.segment) return false;
   if (place.kind === "gap") {
@@ -119,24 +193,75 @@ function kindTag(place) {
   return t("kindHospital");
 }
 
-function tags(place) {
+function tags(place, options = {}) {
   const bits = [`<span class="tag">${escapeHtml(kindTag(place))}</span>`];
   if (place.major_er) bits.push(`<span class="tag er">${escapeHtml(t("major"))}</span>`);
-  if (text(place.hours) && !place.open24) bits.push(`<span class="tag hours-off">${escapeHtml(text(place.hours))}</span>`);
-  else if (place.open24) bits.push(`<span class="tag">${escapeHtml(t("hours24"))}</span>`);
+  if (!options.skipHours && text(place.hours) && !place.open24) bits.push(`<span class="tag hours-off">${escapeHtml(text(place.hours))}</span>`);
+  else if (!options.skipHours && place.open24) bits.push(`<span class="tag">${escapeHtml(t("hours24"))}</span>`);
   if (place.side === "detour") bits.push(`<span class="tag detour">${escapeHtml(t("tagDetour"))}</span>`);
   if (!place.exact && place.kind !== "gap") bits.push(`<span class="tag approx">${escapeHtml(t("tagApprox"))}</span>`);
   if (place.km) bits.push(`<span class="tag">${escapeHtml(place.km)}</span>`);
   return bits.join("");
 }
 
+function hoursBrief(place) {
+  if (!place.open24) return "";
+  return `<div class="tags tags-brief"><span class="tag">${escapeHtml(t("hours24"))}</span></div>`;
+}
+
+function moreButton(className) {
+  return `<button type="button" class="more ${className}" aria-expanded="false">${escapeHtml(t("showMore"))}</button>`;
+}
+
+function directionsLink(place) {
+  const directions = `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
+  return `<a href="${directions}" target="_blank" rel="noopener noreferrer">${escapeHtml(t("directions"))}</a>`;
+}
+
 function popupHtml(place) {
   const phone = place.tel
-    ? `<br><a href="tel:${escapeHtml(place.tel)}">${escapeHtml(place.phone)}</a>`
+    ? `<a class="phone" href="tel:${escapeHtml(place.tel)}">${escapeHtml(place.phone)}</a>`
     : "";
-  const hours = text(place.hours) ? `<br>${escapeHtml(text(place.hours))}` : "";
-  const directions = `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
-  return `<strong>${escapeHtml(text(place.name))}</strong><br>${escapeHtml(text(place.address))}${hours}${phone}<br>${escapeHtml(text(place.note))}<br><a href="${directions}" target="_blank" rel="noopener noreferrer">${escapeHtml(t("directions"))}</a>`;
+  return `<div class="popup-card">
+    <strong>${escapeHtml(text(place.name))}</strong>
+    ${hoursBrief(place)}
+    ${phone}
+    <div class="actions">${directionsLink(place)}${moreButton("popup-more")}</div>
+      <div class="card-extra">
+      <div class="tags tags-detail">${tags(place, { skipHours: place.open24 })}</div>
+      <p class="meta">${escapeHtml(text(place.address))}</p>
+      <p class="note">${escapeHtml(text(place.note))}</p>
+    </div>
+  </div>`;
+}
+
+function repositionPopup(popup) {
+  const container = popup.getElement();
+  if (!container || !popup._map) return;
+  container.style.visibility = "hidden";
+  popup._updateLayout();
+  popup._updatePosition();
+  container.style.visibility = "";
+  if (popup.options.autoPan) popup._adjustPan();
+}
+
+function bindPopupMore(popup) {
+  const root = popup.getElement();
+  if (!root || root.dataset.moreBound) return;
+  root.dataset.moreBound = "1";
+  root.addEventListener("click", (event) => {
+    const button = event.target.closest(".popup-more");
+    if (!button) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const card = button.closest(".popup-card");
+    const open = card.classList.toggle("is-open");
+    button.setAttribute("aria-expanded", open ? "true" : "false");
+    button.textContent = open ? t("showLess") : t("showMore");
+    const marker = popup._source;
+    if (hereMarker && marker && marker.getLatLng) keepPopupClearOf(marker, hereMarker.getLatLng());
+    else repositionPopup(popup);
+  });
 }
 
 function syncMarkers(places) {
@@ -161,6 +286,7 @@ function syncMarkers(places) {
     }
     marker.setIcon(iconFor(place));
     marker.setPopupContent(popupHtml(place));
+    if (marker.isPopupOpen()) bindPopupMore(marker.getPopup());
   });
 }
 
@@ -182,20 +308,32 @@ function renderList(places) {
     const phone = place.tel
       ? `<a class="phone" href="tel:${escapeHtml(place.tel)}">${escapeHtml(place.phone)}</a>`
       : "";
-    const directions = `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
     const selected = place.id === state.selected ? " selected" : "";
     return `<article class="card${place.kind === "gap" ? " gap" : ""}${selected}" data-id="${escapeHtml(place.id)}">
       <div class="card-top"><h2>${escapeHtml(text(place.name))}</h2></div>
-      <div class="tags">${tags(place)}</div>
-      <p class="meta">${escapeHtml(text(place.address))}</p>
+      <div class="tags tags-full">${tags(place)}</div>
+      ${hoursBrief(place)}
       ${phone}
-      <p class="note">${escapeHtml(text(place.note))}</p>
-      <div class="actions"><a href="${directions}" target="_blank" rel="noopener noreferrer">${escapeHtml(t("directions"))}</a></div>
+      <div class="actions">${directionsLink(place)}${moreButton("")}</div>
+      <div class="card-extra">
+        <div class="tags tags-detail">${tags(place, { skipHours: place.open24 })}</div>
+        <p class="meta">${escapeHtml(text(place.address))}</p>
+        <p class="note">${escapeHtml(text(place.note))}</p>
+      </div>
     </article>`;
   }).join("");
 
   list.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", (event) => {
+      const more = event.target.closest(".more");
+      if (more) {
+        event.preventDefault();
+        event.stopPropagation();
+        const open = card.classList.toggle("is-open");
+        more.setAttribute("aria-expanded", open ? "true" : "false");
+        more.textContent = open ? t("showLess") : t("showMore");
+        return;
+      }
       if (event.target.closest("a")) return;
       select(card.dataset.id, true);
     });
@@ -212,7 +350,7 @@ function render() {
   if (selectedCard) selectedCard.scrollIntoView({ block: "nearest" });
 }
 
-function select(id, fly) {
+function select(id, fly, afterOpen) {
   state.selected = id;
   const place = GUIDE.places.find((item) => item.id === id);
   if (!place) return;
@@ -225,19 +363,127 @@ function select(id, fly) {
   if (!marker) return;
   const zoom = place.exact && place.kind !== "gap" ? 16 : 14;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const open = () => {
+    let panning = false;
+    const onPan = () => { panning = true; };
+    map.once("autopanstart", onPan);
+    marker.openPopup();
+    map.off("autopanstart", onPan);
+    if (!afterOpen) return;
+    if (panning) map.once("moveend", () => afterOpen(marker));
+    else afterOpen(marker);
+  };
   if (fly) {
     const target = L.latLng(place.lat, place.lng);
     const alreadyThere = map.getCenter().distanceTo(target) < 40 && Math.abs(map.getZoom() - zoom) < 0.5;
     if (alreadyThere || reduce) {
       map.setView(target, zoom);
-      marker.openPopup();
+      open();
     } else {
       map.flyTo(target, zoom, { duration: 0.55 });
-      map.once("moveend", () => marker.openPopup());
+      map.once("moveend", open);
     }
   } else {
-    marker.openPopup();
+    open();
   }
+}
+
+const POPUP_OFFSET = L.point(0, 7);
+
+function resetPopupShift(popup) {
+  popup.options.offset = POPUP_OFFSET;
+  const tip = popup.getElement() && popup.getElement().querySelector(".leaflet-popup-tip-container");
+  if (tip) {
+    tip.style.marginLeft = "";
+    tip.style.visibility = "";
+  }
+}
+
+/* Slide the popup sideways so it does not cover the "you are here" pin.
+   The tip is moved back so it still points at the hospital. */
+function keepPopupClearOf(marker, here) {
+  const popup = marker.getPopup();
+  if (!popup || !popup.isOpen()) return;
+  popup.options.autoPan = false;
+  popup.options.offset = POPUP_OFFSET;
+  repositionPopup(popup);
+  resetPopupShift(popup);
+  const el = popup.getElement();
+  const box = el.getBoundingClientRect();
+  const origin = map.getContainer().getBoundingClientRect();
+  const you = map.latLngToContainerPoint(here);
+  const gap = 10;
+  const pin = {
+    left: origin.left + you.x - 18 - gap,
+    right: origin.left + you.x + 18 + gap,
+    top: origin.top + you.y - 46 - gap,
+    bottom: origin.top + you.y + 2 + gap,
+  };
+  const overlaps = box.left < pin.right && box.right > pin.left && box.top < pin.bottom && box.bottom > pin.top;
+  if (!overlaps) return;
+
+  const hospitalX = map.latLngToContainerPoint(marker.getLatLng()).x;
+  const dx = you.x >= hospitalX ? pin.left - box.right : pin.right - box.left;
+  popup.options.offset = L.point(dx, POPUP_OFFSET.y);
+  popup.options.autoPan = false;
+  repositionPopup(popup);
+  popup.options.autoPan = true;
+
+  const tip = el.querySelector(".leaflet-popup-tip-container");
+  if (tip) {
+    const room = box.width / 2 - 24;
+    if (Math.abs(dx) <= room) tip.style.marginLeft = `${-20 - dx}px`;
+    else tip.style.visibility = "hidden";
+  }
+
+  nudgePopupIntoView(el, here);
+  marker.once("popupclose", () => resetPopupShift(popup));
+}
+
+function safeMapRect() {
+  const mapBox = map.getContainer().getBoundingClientRect();
+  const rectOf = (selector) => {
+    const node = document.querySelector(selector);
+    if (!node) return null;
+    const rect = node.getBoundingClientRect();
+    return rect.width > 1 && rect.height > 1 ? rect : null;
+  };
+  let left = mapBox.left + 8;
+  let right = mapBox.right - 8;
+  let top = mapBox.top + 8;
+  let bottom = mapBox.bottom - 8;
+  const zoom = rectOf(".leaflet-control-zoom");
+  const tools = rectOf(".map-tools");
+  const legend = rectOf(".legend");
+  const note = document.getElementById("map-note");
+  const noteBox = note && !note.hidden ? note.getBoundingClientRect() : null;
+  if (zoom) left = Math.max(left, zoom.right + 6);
+  if (tools) top = Math.max(top, tools.bottom + 6);
+  if (legend) bottom = Math.min(bottom, legend.top - 6);
+  if (noteBox && noteBox.height > 1) bottom = Math.min(bottom, noteBox.top - 6);
+  return { left, right, top, bottom };
+}
+
+/* Pan so the location pin and the shifted popup stay inside the phone map,
+   clear of the zoom buttons, the tool row, and the legend. */
+function nudgePopupIntoView(popupEl, here) {
+  const safe = safeMapRect();
+  const pop = popupEl.getBoundingClientRect();
+  const you = map.latLngToContainerPoint(here);
+  const origin = map.getContainer().getBoundingClientRect();
+  const pinRight = origin.left + you.x + 18;
+  const pinBottom = origin.top + you.y + 2;
+  let x = 0;
+  let y = 0;
+  if (pinRight > safe.right) x += pinRight - safe.right;
+  if (pop.top < safe.top) y += pop.top - safe.top;
+  if (pinBottom > safe.bottom) y += pinBottom - safe.bottom;
+  if (pop.left < safe.left) {
+    const push = safe.left - pop.left;
+    const room = safe.right - pinRight;
+    if (push <= room) x -= push;
+  }
+  if (x || y) map.panBy([x, y], { animate: false });
 }
 
 function mapPadding() {
@@ -292,6 +538,8 @@ function applyCopy() {
   document.getElementById("expand").textContent = document.body.classList.contains("map-full") ? t("showList") : t("fullMap");
   paintSegments();
   endpoints.forEach(paintEndpoint);
+  paintStations();
+  paintHere();
   render();
   paintNotice();
 }
@@ -396,13 +644,10 @@ document.getElementById("nearest").addEventListener("click", () => {
   navigator.geolocation.getCurrentPosition((position) => {
     const here = L.latLng(position.coords.latitude, position.coords.longitude);
     if (hereMarker) map.removeLayer(hereMarker);
-    hereMarker = L.circleMarker(here, {
-      radius: 7,
-      color: "#1c1915",
-      weight: 2,
-      fillColor: "#e7b089",
-      fillOpacity: 1,
-    }).addTo(map);
+    hereMarker = L.marker(here, { icon: hereIcon(), zIndexOffset: 800 }).addTo(map);
+    hereMarker.bindPopup("");
+    hereMarker.bindTooltip("", { direction: "top", offset: [0, -36] });
+    paintHere();
     const nearest = GUIDE.places
       .filter((place) => place.kind !== "gap")
       .map((place) => ({ place, meters: here.distanceTo([place.lat, place.lng]) }))
@@ -413,7 +658,18 @@ document.getElementById("nearest").addEventListener("click", () => {
       name: text(nearest.place.name),
       meters: nearest.meters,
     });
-    select(nearest.place.id, true);
+    const dodge = (marker) => keepPopupClearOf(marker, here);
+    const closeEnough = nearest.meters < 250;
+    if (closeEnough) {
+      select(nearest.place.id, true, dodge);
+    } else {
+      const bounds = L.latLngBounds([here, [nearest.place.lat, nearest.place.lng]]);
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const options = { ...mapPadding(), maxZoom: 15 };
+      map.once("moveend", () => select(nearest.place.id, false, dodge));
+      if (reduce) map.fitBounds(bounds, options);
+      else map.flyToBounds(bounds, { ...options, duration: 0.6 });
+    }
   }, () => {
     showNotice({ key: "geoDenied" });
   }, { enableHighAccuracy: true, timeout: 8000 });
@@ -424,4 +680,5 @@ document.querySelectorAll("[data-lang]").forEach((button) => {
 });
 
 setLang(initialLang());
+map.on("popupopen", (event) => bindPopupMore(event.popup));
 map.fitBounds(corridor.getBounds(), mapPadding());
