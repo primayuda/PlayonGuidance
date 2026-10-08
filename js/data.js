@@ -5248,7 +5248,7 @@ const GUIDE = {
         "id": "Klinik Citra Insani Husada"
       },
       "segment": "cianjur",
-      "side": "road",
+      "side": "detour",
       "kind": "clinic",
       "major_er": false,
       "open24": false,
@@ -5256,18 +5256,18 @@ const GUIDE = {
         "en": "07:00–21:00",
         "id": "07:00–21:00"
       },
-      "exact": false,
+      "exact": true,
       "phone": "022-6903108",
       "address": {
         "en": "Rajamandala Kulon",
         "id": "Rajamandala Kulon"
       },
       "km": "",
-      "lat": -6.832706,
-      "lng": 107.351221,
+      "lat": -6.820514,
+      "lng": 107.349425,
       "note": {
-        "en": "Inpatient primary clinic. Closed overnight. An old clinic notice gives Kp. Ciburahol No. 41 in Rajamandala Kulon. A map point about 1.4 km north of the road was not confirmed as that building, so the pin stays on the Rajamandala Kulon road.",
-        "id": "Klinik pratama rawat inap. Tutup semalaman. Pemberitahuan lama menyebut Kp. Ciburahol No. 41 di Rajamandala Kulon. Titik peta sekitar 1,4 km di utara jalan belum terkonfirmasi sebagai gedung itu, jadi pin tetap di jalan Rajamandala Kulon."
+        "en": "Inpatient primary clinic. Closed overnight. Confirmed Google Maps point for Klinik Pratama Rawat Inap Citra Insani Husada, about 1.4 km north of the Rajamandala Kulon road.",
+        "id": "Klinik pratama rawat inap. Tutup semalaman. Titik Google Maps yang terkonfirmasi untuk Klinik Pratama Rawat Inap Citra Insani Husada, sekitar 1,4 km di utara jalan Rajamandala Kulon."
       },
       "tel": "+62226903108"
     },
@@ -5286,18 +5286,18 @@ const GUIDE = {
         "en": "24 hours",
         "id": "24 jam"
       },
-      "exact": false,
+      "exact": true,
       "phone": "",
       "address": {
         "en": "Jl. Raya Cipatat, Rajamandala",
         "id": "Jl. Raya Cipatat, Rajamandala"
       },
       "km": "",
-      "lat": -6.83263,
-      "lng": 107.348734,
+      "lat": -6.831849,
+      "lng": 107.365805,
       "note": {
-        "en": "Crew notes describe a 24-hour puskesmas on Jl. Raya Cipatat. This pin is still the mapped puskesmas pembantu in Rajamandala Kulon. A directory lists Jl. Raya Cipatat No. 1, but no separate building coordinate was found.",
-        "id": "Catatan kru menyebut puskesmas 24 jam di Jl. Raya Cipatat. Pin ini masih puskesmas pembantu yang ada di peta, di Rajamandala Kulon. Sebuah direktori menulis Jl. Raya Cipatat No. 1, tetapi koordinat gedung yang terpisah tidak ditemukan."
+        "en": "Open overnight. Confirmed Google Maps point for Puskesmas DTP Rajamandala, about 260 m off Jl. Raya Cipatat. No phone in the crew notes.",
+        "id": "Buka semalaman. Titik Google Maps yang terkonfirmasi untuk Puskesmas DTP Rajamandala, sekitar 260 m dari Jl. Raya Cipatat. Tidak ada nomor telepon di catatan kru."
       },
       "tel": ""
     },
@@ -5316,18 +5316,18 @@ const GUIDE = {
         "en": "24 hours",
         "id": "24 jam"
       },
-      "exact": false,
+      "exact": true,
       "phone": "",
       "address": {
         "en": "Jl. Raya Cipatat KM 32 No. 25, Cipatat",
         "id": "Jl. Raya Cipatat KM 32 No. 25, Cipatat"
       },
       "km": "KM 32",
-      "lat": -6.824371,
-      "lng": 107.383934,
+      "lat": -6.82451,
+      "lng": 107.384123,
       "note": {
-        "en": "Open overnight. The pin is a published map point for KM 32 on Jl. Raya Cipatat. OpenStreetMap does not name the building, so confirm the gate.",
-        "id": "Buka semalaman. Pin ini adalah titik peta yang terbit untuk KM 32 di Jl. Raya Cipatat. OpenStreetMap tidak menulis nama gedungnya, jadi pastikan gerbangnya."
+        "en": "Open overnight. Confirmed Google Maps point for Rahmani Medical Clinic, on Jl. Raya Cipatat KM 32. No phone in the crew notes.",
+        "id": "Buka semalaman. Titik Google Maps yang terkonfirmasi untuk Rahmani Medical Clinic, di Jl. Raya Cipatat KM 32. Tidak ada nomor telepon di catatan kru."
       },
       "tel": ""
     },
