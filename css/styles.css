@@ -526,13 +526,40 @@ button, a, .card {
   transform: rotate(45deg);
 }
 .pin.endpoint {
-  background: var(--ink);
-  color: #f6f1e7;
-  display: grid;
-  place-items: center;
-  font-size: 0.72rem;
-  font-weight: 800;
-  border-radius: 0.25rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+.pin.endpoint svg {
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(28, 25, 21, 0.45));
+}
+.pin.endpoint .pin-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.swatch.flag {
+  width: 0.78rem;
+  height: 0.62rem;
+  border: 1px solid var(--ink);
+  border-radius: 1px;
+  background-color: #f7f4ee;
+  background-image:
+    linear-gradient(45deg, var(--ink) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--ink) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--ink) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--ink) 75%);
+  background-size: 0.36rem 0.36rem;
+  background-position: 0 0, 0 0.18rem, 0.18rem -0.18rem, -0.18rem 0;
 }
 .pin.ws {
   background: #0b3a4a;

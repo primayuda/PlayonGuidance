@@ -244,12 +244,16 @@ const I18N = {
     en: "Location was not available. You can still search the list.",
   },
   letterStart: {
-    id: "A",
-    en: "S",
+    id: "Awal",
+    en: "Start",
   },
   letterFinish: {
-    id: "F",
-    en: "F",
+    id: "Finis",
+    en: "Finish",
+  },
+  legendEnds: {
+    id: "Awal dan finis",
+    en: "Start and finish",
   },
   pinEr: {
     id: "IGD",

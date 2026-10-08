@@ -66,13 +66,34 @@ function iconFor(place) {
   });
 }
 
-function endpointIcon(letter) {
+function checkerFlag() {
+  const cells = [];
+  const originX = 10;
+  const originY = 4.2;
+  const size = 4.6;
+  for (let row = 0; row < 3; row += 1) {
+    for (let col = 0; col < 4; col += 1) {
+      const dark = (row + col) % 2 === 0;
+      cells.push(
+        `<rect x="${originX + col * size}" y="${originY + row * size}" width="${size}" height="${size}" fill="${dark ? "#1c1915" : "#f7f4ee"}"/>`
+      );
+    }
+  }
+  return `<svg viewBox="0 0 36 40" width="36" height="40" aria-hidden="true" focusable="false">
+    <path d="M8 3v34" fill="none" stroke="#fffaf3" stroke-width="4" stroke-linecap="round"/>
+    <path d="M8 3v34" fill="none" stroke="#1c1915" stroke-width="2.15" stroke-linecap="round"/>
+    ${cells.join("")}
+    <rect x="${originX}" y="${originY}" width="${4 * size}" height="${3 * size}" fill="none" stroke="#1c1915" stroke-width="1.15"/>
+  </svg>`;
+}
+
+function endpointIcon(label) {
   return L.divIcon({
     className: "pin endpoint",
-    html: `<span>${escapeHtml(letter)}</span>`,
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
-    popupAnchor: [0, -14],
+    html: `${checkerFlag()}<span class="pin-label">${escapeHtml(label)}</span>`,
+    iconSize: [36, 40],
+    iconAnchor: [8, 37],
+    popupAnchor: [10, -36],
   });
 }
 
@@ -597,16 +618,37 @@ function frameBounds(places) {
   return bounds;
 }
 
-function fitTo(places) {
+function paddingParts(padding) {
+  const tl = L.point(padding.paddingTopLeft || [0, 0]);
+  const br = L.point(padding.paddingBottomRight || [0, 0]);
+  return { total: tl.add(br), offset: br.subtract(tl).divideBy(2) };
+}
+
+function fittedZoom(bounds, padding) {
+  return map.getBoundsZoom(bounds, false, paddingParts(padding).total);
+}
+
+function frameCenter(bounds, zoom, padding) {
+  const sw = map.project(bounds.getSouthWest(), zoom);
+  const ne = map.project(bounds.getNorthEast(), zoom);
+  return map.unproject(sw.add(ne).divideBy(2).add(paddingParts(padding).offset), zoom);
+}
+
+function fitTo(places, animate) {
+  const whole = state.segment === "all" && !state.major && !state.overnight && !state.road && !state.detour && !state.q;
   if (phone.matches) {
     const visible = sheet.getBoundingClientRect().top - map.getContainer().getBoundingClientRect().top;
-    if (visible < 240) setSheet("peek");
+    if (whole || visible < 240) setSheet("peek");
   }
   const bounds = frameBounds(places);
   const padding = mapPadding();
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce) map.fitBounds(bounds, padding);
-  else map.flyToBounds(bounds, { ...padding, duration: 0.45 });
+  let zoom = fittedZoom(bounds, padding);
+  if (phone.matches && whole) zoom = Math.max(zoom, 9);
+  if (phone.matches && state.segment === "cimahi") zoom = Math.max(map.getMinZoom(), zoom - 1);
+  const center = frameCenter(bounds, zoom, padding);
+  const reduce = animate === false || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) map.setView(center, zoom);
+  else map.flyTo(center, zoom, { duration: 0.45 });
 }
 
 function paintSegments() {
@@ -924,4 +966,4 @@ document.querySelectorAll("[data-lang]").forEach((button) => {
 setLang(initialLang());
 layoutSheet();
 map.on("popupopen", (event) => bindPopupMore(event.popup));
-map.fitBounds(corridor.getBounds(), mapPadding());
+fitTo(GUIDE.places.filter(visible), false);
