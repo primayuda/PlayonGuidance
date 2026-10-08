@@ -11,6 +11,7 @@ const state = {
 
 let lang = "id";
 let notice = null;
+let viewingWhole = true;
 const endpoints = [];
 const phone = window.matchMedia("(max-width: 860px)");
 let sheetState = "peek";
@@ -635,7 +636,8 @@ function frameCenter(bounds, zoom, padding) {
 }
 
 function fitTo(places, animate) {
-  const whole = state.segment === "all" && !state.major && !state.overnight && !state.road && !state.detour && !state.q;
+  const whole = wholeSegment();
+  viewingWhole = whole;
   if (phone.matches) {
     const visible = sheet.getBoundingClientRect().top - map.getContainer().getBoundingClientRect().top;
     if (whole || visible < 240) setSheet("peek");
@@ -649,6 +651,7 @@ function fitTo(places, animate) {
   const reduce = animate === false || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) map.setView(center, zoom);
   else map.flyTo(center, zoom, { duration: 0.45 });
+  syncRouteReturn();
 }
 
 function paintSegments() {
@@ -730,9 +733,9 @@ function paintNotice() {
   const nearest = notice && notice.key === "nearestIs";
   if (!notice) {
     el.hidden = true;
-    el.classList.remove("is-nearest");
+    el.classList.remove("is-nearest", "show-return");
     text.textContent = "";
-    mapWrap.classList.remove("has-nearest");
+    mapWrap.classList.remove("has-nearest", "show-return");
     return;
   }
   el.hidden = false;
@@ -741,6 +744,21 @@ function paintNotice() {
   text.textContent = nearest
     ? t("nearestIs").replace("{name}", notice.name).replace("{distance}", formatDistance(notice.meters))
     : t(notice.key);
+  syncRouteReturn();
+}
+
+/* The return button is only useful once the map has left the whole-route view. */
+function syncRouteReturn() {
+  const nearest = notice && notice.key === "nearestIs" && phone.matches;
+  const zoom = typeof map.getZoom === "function" ? map.getZoom() : undefined;
+  const framed = wholeSegment() && (viewingWhole || (zoom !== undefined && zoom <= 9.05));
+  const show = Boolean(nearest && !framed);
+  document.getElementById("map-note").classList.toggle("show-return", show);
+  mapWrap.classList.toggle("show-return", show);
+}
+
+function wholeSegment() {
+  return state.segment === "all" && !state.major && !state.overnight && !state.road && !state.detour && !state.q;
 }
 
 function showNotice(next) {
@@ -932,6 +950,7 @@ document.getElementById("nearest").addEventListener("click", () => {
       .map((place) => ({ place, meters: here.distanceTo([place.lat, place.lng]) }))
       .sort((a, b) => a.meters - b.meters)[0];
     if (!nearest) return;
+    viewingWhole = false;
     showNotice({
       key: "nearestIs",
       name: text(nearest.place.name),
@@ -966,4 +985,5 @@ document.querySelectorAll("[data-lang]").forEach((button) => {
 setLang(initialLang());
 layoutSheet();
 map.on("popupopen", (event) => bindPopupMore(event.popup));
+map.on("moveend", syncRouteReturn);
 fitTo(GUIDE.places.filter(visible), false);

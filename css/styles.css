@@ -692,7 +692,7 @@ body.map-full #map {
     flex-direction: column;
     gap: 0.45rem;
   }
-  .map-note.is-nearest #route-fit {
+  .map-note.is-nearest.show-return #route-fit {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -707,6 +707,9 @@ body.map-full #map {
     font-weight: 700;
   }
   .map-wrap.has-nearest .leaflet-control-attribution {
+    margin-bottom: 7.25rem;
+  }
+  .map-wrap.has-nearest.show-return .leaflet-control-attribution {
     margin-bottom: 10.5rem;
   }
   .map-tools .legend-toggle {
