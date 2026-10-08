@@ -408,6 +408,7 @@ input:focus-visible {
 .locate { width: 1.1em; height: 1.1em; flex: none; }
 
 .map-tools .legend-toggle,
+#route-fit,
 .sheet-handle { display: none; }
 
 button, a, .card {
@@ -653,6 +654,20 @@ body.map-full #map {
     font-size: 1rem;
     font-weight: 700;
     box-shadow: 0 6px 18px rgba(29, 78, 137, 0.35);
+  }
+  .map-wrap.zoomed #route-fit {
+    display: inline-flex;
+    position: absolute;
+    z-index: 500;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    min-height: 3rem;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .map-wrap.zoomed .leaflet-control-attribution {
+    margin-bottom: 7.6rem;
   }
   .map-tools .legend-toggle {
     display: inline-flex;

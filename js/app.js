@@ -487,7 +487,7 @@ function keepPopupClearOf(marker, here) {
   marker.once("popupclose", () => resetPopupShift(popup));
 }
 
-const MAP_OVERLAYS = [".leaflet-control-zoom", ".map-tools", "#nearest", "#legend-toggle", ".legend", "#map-note"];
+const MAP_OVERLAYS = [".leaflet-control-zoom", ".map-tools", "#nearest", "#route-fit", "#legend-toggle", ".legend", "#map-note"];
 
 function safeMapRect() {
   const mapBox = map.getContainer().getBoundingClientRect();
@@ -533,9 +533,11 @@ function mapPadding() {
   if (phone.matches) {
     const stops = sheetStops();
     const covered = sheetState === "half" ? Math.max(0, stops.half - stops.peek) : 0;
+    const note = document.getElementById("map-note");
+    const noteUp = note && !note.hidden ? 56 : 0;
     return {
       paddingTopLeft: [16, 64],
-      paddingBottomRight: [16, 80 + covered],
+      paddingBottomRight: [16, 80 + covered + noteUp],
     };
   }
   const dock = document.querySelector(".map-dock");
@@ -733,6 +735,22 @@ function setLegend(open) {
   legendToggle.setAttribute("aria-expanded", open ? "true" : "false");
 }
 
+function setZoomed(zoomed) {
+  mapWrap.classList.toggle("zoomed", zoomed && phone.matches);
+}
+
+function showWholeRoute() {
+  map.closePopup();
+  setLegend(false);
+  setZoomed(false);
+  setSheet("peek");
+  const bounds = corridor.getBounds();
+  const options = mapPadding();
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce) map.fitBounds(bounds, options);
+  else map.flyToBounds(bounds, { ...options, duration: 0.6 });
+}
+
 let drag = null;
 let dragged = false;
 let dragEndedAt = 0;
@@ -799,6 +817,8 @@ map.on("click dragstart", () => {
 window.addEventListener("resize", layoutSheet);
 phone.addEventListener("change", layoutSheet);
 
+document.getElementById("route-fit").addEventListener("click", showWholeRoute);
+
 document.getElementById("nearest").addEventListener("click", () => {
   setLegend(false);
   setSheet("peek");
@@ -830,6 +850,7 @@ document.getElementById("nearest").addEventListener("click", () => {
       item.setAttribute("aria-pressed", item.dataset.segment === "all" ? "true" : "false");
     });
     render();
+    setZoomed(true);
     const dodge = (marker) => keepPopupClearOf(marker, here);
     const closeEnough = nearest.meters < 250;
     if (closeEnough) {
